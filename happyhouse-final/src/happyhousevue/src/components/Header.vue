@@ -43,14 +43,12 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item>
-            <v-list-item-title to="/happyhouse/qna">공지사항</v-list-item-title>
+          <v-list-item to="/happyhouse/qna">
+            <v-list-item-title>공지사항</v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
-            <v-list-item-title to="/happyhouse/qna"
-              >QnA 게시판</v-list-item-title
-            >
+          <v-list-item to="/happyhouse/qna">
+            <v-list-item-title>QnA 게시판</v-list-item-title>
           </v-list-item>
 
           <v-list-item>
@@ -67,7 +65,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: false,
@@ -80,13 +78,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getAccessToken', 'getUserId', 'getUserName']),
+    ...mapGetters(["getAccessToken", "getUserId", "getUserName"]),
   },
   methods: {
     onClickLogout() {
       this.$store
-        .dispatch('LOGOUT')
-        .then(() => this.$router.replace('/').catch(() => {}));
+        .dispatch("LOGOUT")
+        .then(() => this.$router.replace("/").catch(() => {}));
     },
   },
 };
