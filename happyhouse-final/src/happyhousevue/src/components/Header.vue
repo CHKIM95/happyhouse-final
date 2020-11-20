@@ -43,12 +43,15 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item to="/happyhouse/qna">
-            <v-list-item-title>공지사항</v-list-item-title>
+          <v-list-item to="/happyhouse">
+            <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
-
           <v-list-item to="/happyhouse/qna">
             <v-list-item-title>QnA 게시판</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/happyhouse/notice">
+            <v-list-item-title>Notice 게시판</v-list-item-title>
           </v-list-item>
 
           <v-list-item>

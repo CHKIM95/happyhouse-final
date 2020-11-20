@@ -60,7 +60,7 @@ public class QnAController {
 	}
 
 	/**
-	 * Qna게시물을 등록한다
+	 * QnA게시물을 등록한다
 	 * @param qna
 	 * @return
 	 * @throws Exception
