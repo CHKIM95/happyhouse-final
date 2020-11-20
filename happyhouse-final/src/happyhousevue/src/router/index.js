@@ -1,10 +1,11 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import QnA from "../views/QnABoard.vue";
-import Notice from "../views/NoticeBoard.vue";
-import Login from "../views/Login.vue";
-import Me from "../views/Me.vue";
-import store from "../store";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import QnA from '../views/QnABoard.vue';
+import Notice from '../views/NoticeBoard.vue';
+import Login from '../views/Login.vue';
+import Me from '../views/Me.vue';
+import Join from '../views/Join.vue';
+import store from '../store';
 
 Vue.use(VueRouter);
 
@@ -14,43 +15,48 @@ const requireAuth = () => (to, from, next) => {
 
   if (store.getters.getAccessToken) {
     return next();
-  } else next("/happyhouse/login" + nextRoute);
+  } else next('/happyhouse/login' + nextRoute);
 };
 
 const routes = [
   {
-    path: "/happyhouse/qna",
-    name: "QnA",
+    path: '/happyhouse/qna',
+    name: 'QnA',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: QnA,
   },
   {
-    path: "happyhouse/notice",
-    name: "notice",
+    path: 'happyhouse/notice',
+    name: 'notice',
     component: Notice,
   },
   {
-    path: "/happyhouse/login",
-    name: "Login",
+    path: '/happyhouse/login',
+    name: 'Login',
     component: Login,
   },
   {
-    path: "/happyhouse/login/:nextRoute",
-    name: "LoginNextRoute",
+    path: '/happyhouse/login/:nextRoute',
+    name: 'LoginNextRoute',
     component: Login,
   },
   {
-    path: "/happyhouse/me",
-    name: "Me",
+    path: '/happyhouse/join',
+    name: 'Join',
+    component: Join,
+  },
+  {
+    path: '/happyhouse/me',
+    name: 'Me',
     component: Me,
     beforeEnter: requireAuth(),
   },
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });

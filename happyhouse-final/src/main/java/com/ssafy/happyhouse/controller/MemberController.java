@@ -31,12 +31,10 @@ public class MemberController {
 
 	@PostMapping("/confirm/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody MemberDto memberDto, HttpServletResponse response, HttpSession session) {
-		System.out.println("confirm/login ㄱㄱ");
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
 			MemberDto loginUser = memberService.login(memberDto);
-			System.out.println(memberDto);
 			if(loginUser != null) {
 //				jwt.io에서 확인
 //				로그인 성공했다면 토큰을 생성한다.
@@ -106,6 +104,12 @@ public class MemberController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@PostMapping("/join")
+	public String joinUser(@RequestBody MemberDto member) {
+		System.out.println(member);
+		return "success";
 	}
 
 }

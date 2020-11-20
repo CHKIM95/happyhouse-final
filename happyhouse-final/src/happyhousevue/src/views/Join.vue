@@ -8,7 +8,6 @@
             :rules="idRules"
             :counter="20"
             label="아이디"
-            disabled
             required
           ></v-text-field>
         </v-col>
@@ -16,10 +15,10 @@
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
-            type="Password"
             v-model="user.userpwd"
+            type="Password"
             :rules="passwordRules"
-            label="패스워드 변경"
+            label="패스워드 입력"
             required
             placeholder="비밀번호를 입력해주세요"
           ></v-text-field>
@@ -44,7 +43,6 @@
             :rules="emailRules"
             label="이메일"
             required
-            @keypress.enter="login"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -52,6 +50,7 @@
       <v-row>
         <v-col cols="8" md="4">
           <v-text-field
+            v-model="user.address"
             id="userAddressCode"
             label="우편번호"
             required
@@ -68,7 +67,6 @@
         <v-col cols="12" md="4">
           <v-text-field
             id="userRoadAddress"
-            v-model="user.address"
             label="도로명 주소"
             required
             placeholder="도로명 주소"
@@ -77,8 +75,8 @@
       </v-row>
 
       <v-row>
-        <v-btn depressed color="primary" @click="updateUser">
-          회원 정보 수정
+        <v-btn depressed color="primary" @click="joinUser">
+          회원 가입
         </v-btn>
       </v-row>
     </v-container>
@@ -94,7 +92,13 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   data: () => ({
-    user: null,
+    user: {
+      userid: '',
+      username: '',
+      userpwd: '',
+      email: '',
+      address: '',
+    },
     valid: false,
     confirmPassword: '',
     idRules: [
@@ -108,17 +112,6 @@ export default {
     ],
   }),
 
-  created() {
-    axios
-      .get(`${SERVER_URL}/user/info`)
-      .then((response) => {
-        this.user = response.data.user;
-      })
-      .catch(() => {
-        this.$store.dispatch('LOGOUT').then(() => this.$router.replace('/'));
-      });
-  },
-
   methods: {
     searchAddress: function() {
       new daum.Postcode({
@@ -129,6 +122,20 @@ export default {
           addressArea.value = data.roadAddress;
         },
       }).open();
+    },
+    joinUser: function() {
+      alert('a');
+      axios
+        .post(`${SERVER_URL}/user/join`, {
+          userid: this.user.userid,
+        })
+        .then((response) => {
+          if (response.data == 'success') {
+            alert('가입되었습니다.');
+          } else {
+            alert('가입에 실패하였습니다.');
+          }
+        });
     },
   },
 };
