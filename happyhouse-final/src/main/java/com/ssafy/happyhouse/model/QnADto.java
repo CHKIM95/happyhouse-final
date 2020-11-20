@@ -1,6 +1,6 @@
 package com.ssafy.happyhouse.model;
 
-public class BoardDto {
+public class QnADto {
 	private int no;
 	private String userid;
 	private String subject;
@@ -41,7 +41,7 @@ public class BoardDto {
 		return "Board [no=" + no + ", userid=" + userid + ", subject=" + subject + ", content=" + content + ", regtime="
 				+ regtime + "]";
 	}
-	public BoardDto(int no, String userid, String subject, String content, String regtime) {
+	public QnADto(int no, String userid, String subject, String content, String regtime) {
 		super();
 		this.no = no;
 		this.userid = userid;
@@ -49,7 +49,7 @@ public class BoardDto {
 		this.content = content;
 		this.regtime = regtime;
 	}
-	public BoardDto() {
+	public QnADto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

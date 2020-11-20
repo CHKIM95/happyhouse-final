@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.edu.vue.mapper.QnAMapper">
+
+	<!-- 게시물 전체 조회 -->
+	<select id="showQnA" resultType="QnADto">
+		select no, userid, subject,
+		content, regtime
+		from qnaboard
+		order by no desc
+	</select>
+
+	<!-- 게시물 전체 등록	 -->
+	<insert id="insertQnA" parameterType="QnADto">
+		insert into quaboard (userid, subject, content, regtime)
+		values (#{userid}, #{subject}, #{content}, now())
+	</insert>
+	
+	<!-- 게시물 상세 조회 -->
+	<select id="detailQnA" parameterType="int"
+		resultType="QnADto">
+		select no, userid, subject, content, regtime
+		from qnaboard
+		where no = #{no}
+	</select>
+
+	<!-- 게시물 수정 -->
+	<update id="updateQnA" parameterType="QnADto">
+		update qnaboard
+		set subject = #{subject}, content = #{content}
+		where no = #{no}
+	</update>
+
+	<!-- 게시물 삭제 -->
+	<delete id="deleteQnA" parameterType="int">
+		delete from qnaboard
+		where no = #{no}
+	</delete>
+    
+	<!-- 게시물 전체 조회 -->
+    <update id="updateBoard" parameterType="QnADto">
+        update qnaboard
+        set subject = #{subject}, content = #{content}
+        where no = #{no}
+    </update>
+</mapper>
+
+	<!-- <select id="boards" parameterType="map" resultType="QnADto"> -->
+	<!-- select no, userid, subject, content, regtime -->
+	<!-- from qnaboard -->
+	<!-- <if test="word != null and word != ''"> -->
+	<!-- <if test="key == 'subject'"> -->
+	<!-- where subject like concat('%', #{word}, '%') -->
+	<!-- </if> -->
+	<!-- <if test="key != 'subject'"> -->
+	<!-- where ${key} = #{word} -->
+	<!-- </if> -->
+	<!-- </if> -->
+	<!-- order by no desc -->
+	<!-- limit #{start}, #{spp} -->
+	<!-- </select> -->
+
+	<!-- <select id="getTotalCount" parameterType="map" resultType="int"> -->
+	<!-- select count(no) -->
+	<!-- from quaboard -->
+	<!-- <if test="word != null and word != ''"> -->
+	<!-- <if test="key == 'subject'"> -->
+	<!-- where subject like concat('%', #{word}, '%') -->
+	<!-- </if> -->
+	<!-- <if test="key != 'subject'"> -->
+	<!-- where ${key} = #{word} -->
+	<!-- </if> -->
+	<!-- </if> -->
+	<!-- </select> -->
