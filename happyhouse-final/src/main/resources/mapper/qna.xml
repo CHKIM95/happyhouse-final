@@ -2,7 +2,7 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.edu.vue.mapper.QnAMapper">
+<mapper namespace="com.ssafy.happyhouse.model.mapper.QnAMapper">
 
 	<!-- 게시물 전체 조회 -->
 	<select id="showQnA" resultType="QnADto">
@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 게시물 전체 등록	 -->
 	<insert id="insertQnA" parameterType="QnADto">
-		insert into quaboard (userid, subject, content, regtime)
+		insert into qnaboard (userid, subject, content, regtime)
 		values (#{userid}, #{subject}, #{content}, now())
 	</insert>
 	
