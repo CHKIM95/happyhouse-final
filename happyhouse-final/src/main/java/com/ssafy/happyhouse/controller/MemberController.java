@@ -31,11 +31,12 @@ public class MemberController {
 
 	@PostMapping("/confirm/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody MemberDto memberDto, HttpServletResponse response, HttpSession session) {
+		System.out.println("confirm/login ㄱㄱ");
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
 			MemberDto loginUser = memberService.login(memberDto);
-			
+			System.out.println(memberDto);
 			if(loginUser != null) {
 //				jwt.io에서 확인
 //				로그인 성공했다면 토큰을 생성한다.
