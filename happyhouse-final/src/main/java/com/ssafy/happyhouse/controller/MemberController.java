@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,9 +108,30 @@ public class MemberController {
 	}
 	
 	@PostMapping("/join")
-	public String joinUser(@RequestBody MemberDto member) {
-		System.out.println(member);
-		return "success";
+	public ResponseEntity<String> joinUser(@RequestBody MemberDto member) throws SQLException {
+		int resultCnt = memberService.join(member);
+		if(resultCnt > 0)
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("fail", HttpStatus.OK);
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<String> updateUser(@RequestBody MemberDto member) throws SQLException {
+		int resultCnt = memberService.updateMember(member);
+		if(resultCnt > 0)
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("fail", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<String> deleteUser(MemberDto member) throws SQLException {
+		int resultCnt = memberService.deleteMember(member);
+		if(resultCnt > 0)
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("fail", HttpStatus.OK);
 	}
 
 }

@@ -10,6 +10,7 @@
             label="아이디"
             disabled
             required
+            placeholder="아이디를 입력해주세요"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -37,6 +38,19 @@
           ></v-text-field>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col cols="12" md="4">
+          <v-text-field
+            v-model="user.username"
+            :rules="nameRules"
+            label="사용자 이름"
+            required
+            placeholder="이름을 입력해주세요"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
@@ -45,6 +59,7 @@
             label="이메일"
             required
             @keypress.enter="login"
+            placeholder="이메일을 입력해주세요"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -71,7 +86,7 @@
             v-model="user.address"
             label="도로명 주소"
             required
-            placeholder="도로명 주소"
+            placeholder="우편번호를 검색하면 도로명 주소가 입력됩니다"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -79,6 +94,10 @@
       <v-row>
         <v-btn depressed color="primary" @click="updateUser">
           회원 정보 수정
+        </v-btn>
+        <v-space></v-space>
+        <v-btn depressed color="primary" @click="deleteUser">
+          회원 탈퇴
         </v-btn>
       </v-row>
     </v-container>
@@ -102,6 +121,7 @@ export default {
       (v) => v.length <= 20 || 'id must be less than 20 characters',
     ],
     passwordRules: [(v) => !!v || 'password is required'],
+    nameRules: [(v) => !!v || 'name is required'],
     emailRules: [
       (v) => !!v || 'E-mail is required',
       (v) => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -129,6 +149,41 @@ export default {
           addressArea.value = data.roadAddress;
         },
       }).open();
+    },
+
+    updateUser: function() {
+      this.user.address = document.getElementById('userRoadAddress').value;
+      axios
+        .put(`${SERVER_URL}/user/update`, {
+          userid: this.user.userid,
+          userpwd: this.user.userpwd,
+          username: this.user.username,
+          email: this.user.email,
+          address: this.user.address,
+        })
+        .then((response) => {
+          if (response.data == 'success') {
+            alert('수정되었습니다');
+            this.$router.replace('/');
+          } else {
+            alert('수정에 실패하였습니다.');
+          }
+        });
+    },
+
+    deleteUser: function() {
+      axios
+        .delete(`${SERVER_URL}/user/delete?userid=${this.user.userid}`)
+        .then((response) => {
+          if (response.data == 'success') {
+            alert('탈퇴되었습니다');
+            this.$store
+              .dispatch('LOGOUT')
+              .then(() => this.$router.replace('/').catch(() => {}));
+          } else {
+            alert('수정에 실패하였습니다.');
+          }
+        });
     },
   },
 };

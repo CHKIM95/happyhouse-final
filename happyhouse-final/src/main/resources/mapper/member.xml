@@ -9,5 +9,21 @@
 		from member
 		where userid = #{userid} and userpwd = #{userpwd}
 	</select>
-
+	
+	<insert id="join" parameterType="MemberDto">
+		INSERT INTO member (userid, username, userpwd, email, address, joindate)
+		values(#{userid}, #{username}, #{userpwd}, #{email}, #{address}, now())
+	</insert>
+	
+	<update id="updateMember" parameterType="MemberDto">
+		update member
+		set username = #{username}, userpwd = #{userpwd}, email = #{email}, address = #{address}
+		where userid = #{userid}
+	</update>
+	
+	<delete id="deleteMember" parameterType="MemberDto">
+		delete from member
+		where userid = #{userid}
+	</delete>
+	
 </mapper>

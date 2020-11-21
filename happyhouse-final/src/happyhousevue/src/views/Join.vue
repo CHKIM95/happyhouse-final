@@ -36,6 +36,19 @@
           ></v-text-field>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col cols="12" md="4">
+          <v-text-field
+            v-model="user.username"
+            :rules="nameRules"
+            label="사용자 이름"
+            required
+            placeholder="이름을 입력해주세요"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
@@ -50,7 +63,6 @@
       <v-row>
         <v-col cols="8" md="4">
           <v-text-field
-            v-model="user.address"
             id="userAddressCode"
             label="우편번호"
             required
@@ -66,6 +78,7 @@
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
+            v-model="user.address"
             id="userRoadAddress"
             label="도로명 주소"
             required
@@ -106,6 +119,7 @@ export default {
       (v) => v.length <= 20 || 'id must be less than 20 characters',
     ],
     passwordRules: [(v) => !!v || 'password is required'],
+    nameRules: [(v) => !!v || 'name is required'],
     emailRules: [
       (v) => !!v || 'E-mail is required',
       (v) => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -124,14 +138,19 @@ export default {
       }).open();
     },
     joinUser: function() {
-      alert('a');
+      this.user.address = document.getElementById('userRoadAddress').value;
       axios
         .post(`${SERVER_URL}/user/join`, {
           userid: this.user.userid,
+          userpwd: this.user.userpwd,
+          username: this.user.username,
+          email: this.user.email,
+          address: this.user.address,
         })
         .then((response) => {
           if (response.data == 'success') {
             alert('가입되었습니다.');
+            this.$router.replace('/happyhouse/me');
           } else {
             alert('가입에 실패하였습니다.');
           }
