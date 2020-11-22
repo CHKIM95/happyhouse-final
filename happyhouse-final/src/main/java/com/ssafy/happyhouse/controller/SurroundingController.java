@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import com.ssafy.happyhouse.model.ClinicDto;
 import com.ssafy.happyhouse.model.HospitalDto;
 import com.ssafy.happyhouse.model.service.SurroundingService;
 
-@Controller
+@RestController
 @RequestMapping("/surrounding")
 public class SurroundingController {
 
@@ -26,15 +27,13 @@ public class SurroundingController {
 	private SurroundingService surroundingService;
 	
 	@RequestMapping(value = "/hospital", method = RequestMethod.GET)
-	public String getHospitals(@RequestParam String gugun, Model model) throws Exception {
-		model.addAttribute("hospitals", surroundingService.searchHospitals(gugun));
-		return "hospitals";
+	public List<HospitalDto> getHospitals(@RequestParam String gugun) throws Exception {
+		return surroundingService.searchHospitals(gugun);
 	}
 	
 	@RequestMapping(value = "/clinic", method = RequestMethod.GET)
-	public String getClinics(@RequestParam String gugun, Model model) throws Exception {
-		model.addAttribute("clinics", surroundingService.searchClinics(gugun));
-		return "clinics";
+	public List<ClinicDto> getClinics(@RequestParam String gugun) throws Exception {
+		return surroundingService.searchClinics(gugun);
 	}
 	
 	
