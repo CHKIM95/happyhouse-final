@@ -1,7 +1,10 @@
 <template>
   <v-app id="inspire">
     <Header />
-    <router-view></router-view>
+    <router-view
+      :inputSelectedData="selectedData"
+      @selectedData="completeSelect"
+    ></router-view>
     <Footer />
   </v-app>
 </template>
@@ -12,11 +15,18 @@ import Footer from './components/Footer.vue';
 
 export default {
   data: () => ({
-    links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
+    selectedData: [],
   }),
+
   components: {
     Header,
     Footer,
+  },
+  methods: {
+    completeSelect: function(data) {
+      this.selectedData = data;
+      this.$router.replace('/happyhouse/houseData');
+    },
   },
 };
 </script>

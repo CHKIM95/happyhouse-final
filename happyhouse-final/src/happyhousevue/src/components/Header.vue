@@ -43,7 +43,7 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item to="/happyhouse">
+          <v-list-item to="/">
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
           <v-list-item to="/happyhouse/qna">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     drawer: false,
@@ -81,13 +81,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getAccessToken", "getUserId", "getUserName"]),
+    ...mapGetters(['getAccessToken', 'getUserId', 'getUserName']),
   },
   methods: {
     onClickLogout() {
       this.$store
-        .dispatch("LOGOUT")
-        .then(() => this.$router.replace("/").catch(() => {}));
+        .dispatch('LOGOUT')
+        .then(() => this.$router.replace('/').catch(() => {}));
     },
   },
 };

@@ -8,6 +8,8 @@ import Login from '../views/Login.vue';
 import Me from '../views/Me.vue';
 import Join from '../views/Join.vue';
 import store from '../store';
+import Main from '../views/Main.vue';
+import HouseData from '../views/HouseData.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,21 @@ const requireAuth = () => (to, from, next) => {
 };
 
 const routes = [
+  {
+    path: '/',
+    name: 'Main',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: Main,
+  },
+
+  {
+    path: '/happyhouse/houseData',
+    name: 'HouseData',
+    component: HouseData,
+  },
+
   {
     path: '/happyhouse/qna',
     name: 'QnA',
@@ -54,18 +71,6 @@ const routes = [
     name: 'notice',
     component: Notice,
   },
-  // {
-  //   path: '/happyhouse/qna/update/:no',
-  //   name: 'UpdateQnA',
-  //   component: UpdateQnA,
-  //   props: true,
-  // },
-  // {
-  //   path: '/happyhouse/qna/detail/:no',
-  //   name: 'DetailQnA',
-  //   component: DetailQnA,
-  //   props: true,
-  // },
   {
     path: '/happyhouse/login',
     name: 'Login',

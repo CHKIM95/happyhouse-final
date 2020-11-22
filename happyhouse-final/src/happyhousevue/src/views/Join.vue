@@ -150,7 +150,7 @@ export default {
         .then((response) => {
           if (response.data == 'success') {
             alert('가입되었습니다.');
-            this.$router.replace('/happyhouse/me');
+            this.$router.replace('/');
           } else {
             alert('가입에 실패하였습니다.');
           }

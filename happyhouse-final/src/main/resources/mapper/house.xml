@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.HouseMapper">
+
+	<select id="getSido" resultType="SidoGugunDongDto">
+		SELECT left(sido_code,2) sidoCode, sido_name sidoName 
+		FROM sidocode
+		ORDER BY sido_code
+	</select>
+	
+	<select id="getGugunInSido" parameterType="String" resultType="SidoGugunDongDto">
+		SELECT left(gugun_code,5) gugunCode, gugun_name gugunName
+		FROM guguncode
+		where left(gugun_code,2) = #{sido}
+		ORDER BY gugun_code
+	</select>
+	
+	<select id="getDongInGugun" parameterType="String" resultType="SidoGugunDongDto">
+		SELECT right(dongcode,5) dongCode, dong dongName
+		FROM dongcode
+		where left(dongcode,5) = #{gugun}
+		ORDER BY dongcode
+	</select>
+	
+</mapper>
