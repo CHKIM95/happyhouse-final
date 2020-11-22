@@ -103,8 +103,11 @@ public class QnAController {
 		QnADto qna = qnaService.detailQnA(no);
 		//TODO if qnas.getNo == -1 return "NO_CONTENT" 
 		if (qna == null || qna.getNo() == -1) {
+			System.out.println(qna.getNo()+"fail");
 			return new ResponseEntity<QnADto>(qna,HttpStatus.NO_CONTENT);
 		}
+		System.out.println(qna.getNo()+"suc");
+		System.out.println(qna);
 		return new ResponseEntity<QnADto>(qna, HttpStatus.OK);
 	}
 
