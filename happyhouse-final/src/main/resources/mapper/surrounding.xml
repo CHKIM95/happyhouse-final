@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.SurroundingMapper">
+
+	<select id="searchClinics" parameterType="String" resultType="ClinicDto">
+		SELECT c.date, c.extract, c.sido, c.gugun, c.name, c.address, c.weekOp, c.satOp, c.sunOp, c.tel
+		from guguncode g join clinic c
+		on g.gugun_name = c.gugun
+		where substr(g.gugun_code, 1, 5) = #{gugun}
+	</select>
+	
+	<select id="searchHospitals" parameterType="String" resultType="HospitalDto">
+		SELECT h.date, h.sido, h.gugun, h.name, h.address, h.type, h.tel
+		from guguncode g join hospital h
+		on g.gugun_name = h.gugun 
+		where substr(g.gugun_code, 1, 5) = #{gugun}
+	</select>
+	
+</mapper>
