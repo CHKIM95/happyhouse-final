@@ -3,7 +3,9 @@
     <Header />
     <router-view
       :inputSelectedData="selectedData"
+      :selectedHouseObj="selectedHouseObj"
       @selectedData="completeSelect"
+      @selectedHouseObj="getDetailInfo"
     ></router-view>
     <Footer />
   </v-app>
@@ -16,6 +18,7 @@ import Footer from './components/Footer.vue';
 export default {
   data: () => ({
     selectedData: [],
+    selectedHouseObj: {},
   }),
 
   components: {
@@ -26,6 +29,11 @@ export default {
     completeSelect: function(data) {
       this.selectedData = data;
       this.$router.replace('/happyhouse/houseData');
+    },
+
+    getDetailInfo: function(data) {
+      this.selectedHouseObj = data;
+      this.$router.push('/happyhouse/houseDetailData');
     },
   },
 };

@@ -10,6 +10,7 @@ import Join from '../views/Join.vue';
 import store from '../store';
 import Main from '../views/Main.vue';
 import HouseData from '../views/HouseData.vue';
+import HouseDetailData from '../views/HouseDetailData.vue';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,12 @@ const routes = [
     path: '/happyhouse/houseData',
     name: 'HouseData',
     component: HouseData,
+  },
+
+  {
+    path: '/happyhouse/houseDetailData',
+    name: 'HouseDetailData',
+    component: HouseDetailData,
   },
 
   {
