@@ -15,14 +15,10 @@ export default {
   components: {
     SelectBox,
   },
-
   methods: {
     emitFunc: function(data) {
       this.$emit('selectedData', data);
     },
   },
-  // created() {
-  //   this.$store.state.accessToken = this.$store.localStorage.accessToken;
-  // },
 };
 </script>

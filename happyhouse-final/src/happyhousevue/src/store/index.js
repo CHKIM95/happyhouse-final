@@ -14,8 +14,8 @@ export default new Vuex.Store({
   },
   getters: {
     getAccessToken(state) {
-      console.log(state.accessToken + ' is nice');
-      console.log(localStorage.accessToken + ' is local');
+      // console.log(state.accessToken + ' is nice');
+      if (state.accessToken !== null) return state.accessToken;
 
       // if (state.accessToken == null && localStorage != undefined)
       //   return localStorage.accessToken;
@@ -25,14 +25,15 @@ export default new Vuex.Store({
       // console.log('반전 of undefined' + !undefined);
       // console.log(localStorage.accessToken);
 
-      if (state.accessToken === null) return localStorage.accessToken;
-      return state.accessToken;
+      return localStorage.accessToken;
     },
     getUserId(state) {
-      return state.userId;
+      if (state.userId !== '') return state.userId;
+      return localStorage.userId;
     },
     getUserName(state) {
-      return state.userName;
+      if (state.userName !== '') return state.userName;
+      return localStorage.userName;
     },
   },
   mutations: {
@@ -41,6 +42,11 @@ export default new Vuex.Store({
       state.userId = payload['user-id'];
       state.userName = payload['user-name'];
       localStorage.accessToken = payload['auth-token'];
+      localStorage.userId = payload['user-id'];
+      localStorage.userName = payload['user-name'];
+      // console.log(localStorage.userId);
+      // console.log('mutation ' + state);
+      // console.log('mutation ' + localStorage.accessToken);
       // const enhanceAccessToeken = () => {
       //   const { accessToken } = localStorage;
       //   if (!accessToken) return;
@@ -51,6 +57,8 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.accessToken = null;
       delete localStorage.accessToken;
+      delete localStorage.userId;
+      delete localStorage.userName;
       // localStorage.accessToken = null;
       state.userId = '';
       state.userName = '';
@@ -69,8 +77,7 @@ export default new Vuex.Store({
         .catch(({ message }) => alert(message));
     },
     LOGOUT(context) {
-      console.log(this.state.accessToken);
-      console.log(localStorage.accessToken);
+      // console.log(this.state.accessToken);
       axios.defaults.headers.common['auth-token'] = undefined;
       context.commit('LOGOUT');
     },

@@ -69,6 +69,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import axios from 'axios';
+
 export default {
   data: () => ({
     drawer: false,
@@ -99,11 +101,10 @@ export default {
     },
   },
   mounted() {
-    // if (this.$store.getAccessToken) {
-    //   this.isLogin = false;
-    // } else {
-    //   this.isLogin = true;
-    // }
+    this.$store.state.accessToken = this.getAccessToken;
+    this.$store.state.userId = this.getUserId;
+    this.$store.state.userName = this.getUserName;
+    axios.defaults.headers.common['auth-token'] = this.getAccessToken;
   },
   // updated() {
   //   if (this.$store.getAccessToken) {
