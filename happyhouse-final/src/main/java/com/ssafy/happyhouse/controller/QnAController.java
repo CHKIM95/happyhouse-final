@@ -49,9 +49,11 @@ public class QnAController {
 	@ApiOperation(value = "모든 QnA게시물의 정보를 반환한다.", response = List.class)
 	@RequestMapping(value = "/showQnA", method = RequestMethod.GET)
 	public ResponseEntity<List<QnADto>> showQnA() throws Exception {
-		logger.debug("retrieveQnA - 호출");
+		logger.info("retrieveQnA - 호출");
+		System.out.println("hello");
 		//TODO 목록에 값이 없을때
 		List<QnADto> qnas = qnaService.showQnA();
+		System.out.println(qnas);
 		// TODO null이면??
 //		if (qnas.isEmpty()) {
 //			return new ResponseEntity(HttpStatus.NO_CONTENT);

@@ -21,5 +21,8 @@ export default {
       this.$emit('selectedData', data);
     },
   },
+  // created() {
+  //   this.$store.state.accessToken = this.$store.localStorage.accessToken;
+  // },
 };
 </script>

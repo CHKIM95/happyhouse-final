@@ -129,6 +129,7 @@ export default {
   }),
 
   created() {
+    axios.defaults.headers.common['auth-token'] = this.$store.state.accessToken;
     axios
       .get(`${SERVER_URL}/user/info`)
       .then((response) => {

@@ -14,6 +14,18 @@ export default new Vuex.Store({
   },
   getters: {
     getAccessToken(state) {
+      console.log(state.accessToken + ' is nice');
+      console.log(localStorage.accessToken + ' is local');
+
+      // if (state.accessToken == null && localStorage != undefined)
+      //   return localStorage.accessToken;
+      // console.log(state.accessToken);
+      // console.log(state.accessToken || localStorage.accessToken);
+      // console.log('반전 of null' + !null);
+      // console.log('반전 of undefined' + !undefined);
+      // console.log(localStorage.accessToken);
+
+      if (state.accessToken === null) return localStorage.accessToken;
       return state.accessToken;
     },
     getUserId(state) {
@@ -28,9 +40,18 @@ export default new Vuex.Store({
       state.accessToken = payload['auth-token'];
       state.userId = payload['user-id'];
       state.userName = payload['user-name'];
+      localStorage.accessToken = payload['auth-token'];
+      // const enhanceAccessToeken = () => {
+      //   const { accessToken } = localStorage;
+      //   if (!accessToken) return;
+      //   axios.defaults.headers.common['auth-token'] = payload['auth-token'];
+      // };
+      // enhanceAccessToeken();
     },
     LOGOUT(state) {
       state.accessToken = null;
+      delete localStorage.accessToken;
+      // localStorage.accessToken = null;
       state.userId = '';
       state.userName = '';
     },
@@ -48,8 +69,10 @@ export default new Vuex.Store({
         .catch(({ message }) => alert(message));
     },
     LOGOUT(context) {
-      context.commit('LOGOUT');
+      console.log(this.state.accessToken);
+      console.log(localStorage.accessToken);
       axios.defaults.headers.common['auth-token'] = undefined;
+      context.commit('LOGOUT');
     },
   },
   modules: {},

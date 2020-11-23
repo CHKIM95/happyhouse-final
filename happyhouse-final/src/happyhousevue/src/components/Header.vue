@@ -87,8 +87,30 @@ export default {
     onClickLogout() {
       this.$store
         .dispatch('LOGOUT')
-        .then(() => this.$router.replace('/').catch(() => {}));
+        .then(() => {
+          console.log('before go to main page');
+          console.log(this.getAccessToken);
+          this.$router.replace('/');
+        })
+        .catch(() => {
+          alert('error');
+        });
+      // this.$store.getters.getAccessToken();
     },
   },
+  mounted() {
+    // if (this.$store.getAccessToken) {
+    //   this.isLogin = false;
+    // } else {
+    //   this.isLogin = true;
+    // }
+  },
+  // updated() {
+  //   if (this.$store.getAccessToken) {
+  //     this.isLogin = flase;
+  //   } else {
+  //     this.isLogin = false;
+  //   }
+  // },
 };
 </script>
