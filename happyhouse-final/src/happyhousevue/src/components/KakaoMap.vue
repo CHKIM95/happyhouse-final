@@ -11,7 +11,7 @@
 let staticMap = null;
 
 export default {
-  props: ['propsListData', 'mapId'],
+  props: ['propsListData', 'mapId', 'propsHeight', 'propsWidth'],
   watch: {
     propsListData: function() {
       this.makeMap();

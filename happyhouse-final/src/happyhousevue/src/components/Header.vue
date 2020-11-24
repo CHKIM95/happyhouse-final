@@ -5,13 +5,13 @@
 
       <v-toolbar-title>Page title</v-toolbar-title>
 
-      <v-btn icon right>
+      <!-- <v-btn icon right>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
 
       <v-btn icon right>
         <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <v-tabs right>
         <v-tab v-if="!getAccessToken" to="/happyhouse/login">로그인</v-tab>

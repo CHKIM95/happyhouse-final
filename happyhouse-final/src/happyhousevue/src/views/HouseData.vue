@@ -16,6 +16,7 @@
         :items-per-page="itemsPerPage"
         hide-default-footer
         @click:row="getDetailInfo"
+        @page-count="pageCount = $event"
       >
       </v-data-table>
 

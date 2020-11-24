@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row style="height:500px">
     <v-col cols="4" sm="4">
       <KakaoMap :propsListData="clinicData" :mapId="clinicMapId" />
     </v-col>
@@ -10,6 +10,7 @@
         :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
+        @page-count="pageCount = $event"
         @click:row="getDetailInfo"
       >
       </v-data-table>
