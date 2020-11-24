@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <div id="map" style="width:80%; height:500px; margin:0 auto;"></div>
+    {{ isClicked }}
+    <div :id="mapId" style="width:80%; height:500px; margin:0 auto;"></div>
   </v-container>
 </template>
 
@@ -10,8 +11,10 @@
 ></script>
 
 <script>
+let staticMap = null;
+
 export default {
-  props: ['propsListData'],
+  props: ['propsListData', 'mapId'],
   watch: {
     propsListData: function() {
       let _this = this;
@@ -31,7 +34,7 @@ export default {
         }); //end each
       }
 
-      let mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      let mapContainer = document.getElementById(this.mapId), // 지도를 표시할 div
         mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
           level: 7, // 지도의 확대 레벨
@@ -41,15 +44,19 @@ export default {
         mapContainer.removeChild(mapContainer.firstChild);
       // 지도를 생성합니다
       let map = new kakao.maps.Map(mapContainer, mapOption);
+      staticMap = map;
 
       // 주소-좌표 변환 객체를 생성합니다
       let geocoder = new kakao.maps.services.Geocoder();
 
       _this.propsListData.forEach((nowObj, index) => {
         let addressValue = '';
+        let nameValue = '';
         if (addressKey === '법정동')
           addressValue = nowObj['법정동']._text + ' ' + nowObj['지번']._text;
-        else addressValue = nowObj['address']._text;
+        else addressValue = nowObj['address'];
+        if (nameKey === 'name') nameValue = nowObj['name'];
+        else nameValue = nowObj[nameKey]._text;
 
         geocoder.addressSearch(addressValue, function(result, status) {
           // 정상적으로 검색이 완료됐으면
@@ -66,7 +73,7 @@ export default {
               '<div class="wrap">' +
               '    <div class="info">' +
               '        <div class="title">' +
-              nowObj[nameKey]._text +
+              nameValue +
               '        </div>' +
               '        <div class="body">' +
               '            <div class="img">' +
@@ -103,6 +110,7 @@ export default {
           } //end ok
         }); //endSearch
       });
+      map.relayout();
     },
   },
 };

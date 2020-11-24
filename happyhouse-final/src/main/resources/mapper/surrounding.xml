@@ -9,7 +9,7 @@
 		from baseaddress b join clinic c
 		on b.gugun = c.gugun 
 		and b.city = c.sido
-		where substr(g.gugun_code, 1, 5) = #{gugun}
+		where substr(b.code, 1, 5) = #{gugun}
 	</select>
 	
 	<select id="searchHospitals" parameterType="String" resultType="HospitalDto">

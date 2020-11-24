@@ -2,7 +2,11 @@
   <div>
     <SelectBox @selectedHouseType="showData" />
     <v-container>
-      <KakaoMap :propsListData="houseData" @selectedEmitObj="getDetailInfo" />
+      <KakaoMap
+        :propsListData="houseData"
+        :mapId="houseMapId"
+        @selectedEmitObj="getDetailInfo"
+      />
 
       <br />
       <v-data-table
@@ -58,6 +62,7 @@ export default {
       { text: '가격', value: '' },
       { text: '지역코드', value: '지역코드._text' },
     ],
+    houseMapId: 'houseMap',
     houseData: [],
     gugun: '',
     houseType: '',
