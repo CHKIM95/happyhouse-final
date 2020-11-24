@@ -15,52 +15,54 @@
               lazy-src="@/assets/Zip-Zung.png"
               max-height="400"
               max-width="400"
-              src="https://source.unsplash.com/400x400/?house"
+              src="https://source.unsplash.com/200x200/?house"
             ></v-img>
           </v-row>
         </v-col>
-        <v-col cols="8" sm="6">
-          <v-simple-table dense>
-            <thead>
-              <tr>
-                <th colspan="2">
-                  상세정보
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  아파트/주택 명
-                </td>
-                <td>{{ aptName }}</td>
-              </tr>
-              <tr>
-                <td>법정동</td>
-                <td>{{ selectedHouseObj['법정동']._text }}</td>
-              </tr>
-              <tr>
-                <td>지번</td>
-                <td>{{ selectedHouseObj['지번']._text }}</td>
-              </tr>
-              <tr>
-                <td>지역코드</td>
-                <td>{{ selectedHouseObj['지역코드']._text }}</td>
-              </tr>
-              <tr>
-                <td>금액</td>
-                <td>{{ dealPrice }}</td>
-              </tr>
-              <tr>
-                <td>면적</td>
-                <td>{{ selectedHouseObj['전용면적']._text }}</td>
-              </tr>
-              <tr>
-                <td>층</td>
-                <td>{{ selectedHouseObj['층']._text }}</td>
-              </tr>
-            </tbody>
-          </v-simple-table>
+        <v-col class="mt-2" cols="8" sm="6">
+          <v-card>
+            <v-simple-table>
+              <thead>
+                <tr>
+                  <th colspan="2">
+                    상세정보
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    아파트/주택 명
+                  </td>
+                  <td>{{ aptName }}</td>
+                </tr>
+                <tr>
+                  <td>법정동</td>
+                  <td>{{ selectedHouseObj['법정동']._text }}</td>
+                </tr>
+                <tr>
+                  <td>지번</td>
+                  <td>{{ selectedHouseObj['지번']._text }}</td>
+                </tr>
+                <tr>
+                  <td>지역코드</td>
+                  <td>{{ selectedHouseObj['지역코드']._text }}</td>
+                </tr>
+                <tr>
+                  <td>금액</td>
+                  <td>{{ dealPrice }}</td>
+                </tr>
+                <tr>
+                  <td>면적</td>
+                  <td>{{ selectedHouseObj['전용면적']._text }}</td>
+                </tr>
+                <tr>
+                  <td>층</td>
+                  <td>{{ selectedHouseObj['층']._text }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card>
         </v-col>
       </v-row>
 
@@ -199,20 +201,31 @@ export default {
     this.selectedHouseObj = this.selectedHouseObjArr[0];
     this.coordinates = this.selectedHouseObjArr[1];
 
-    if (
-      (((this.selectedHouseObj['연립다세대'] == undefined &&
-        this.selectedHouseObj['아파트']) == undefined &&
-        this.selectedHouseObj['보증금액']) == undefined &&
-        this.selectedHouseObj['거래금액']) == undefined
-    ) {
-      this.$router.push('/');
+    if (this.selectedHouseObj == undefined) {
+      alert('새로고침쓰!');
+      this.$router.push('/happyhouse');
     }
+    // console.log(
+    //   this.selectedHouseObj['연립다세대'],
+    //   this.selectedHouseObj['아파트'],
+    //   this.selectedHouseObj['보증금액'],
+    //   this.selectedHouseObj['거래금액']
+    // );
+
     if (this.selectedHouseObj['연립다세대'] == null)
       this.aptName = this.selectedHouseObj['아파트']._text;
     else this.aptName = this.selectedHouseObj['연립다세대']._text;
     if (this.selectedHouseObj['보증금액'] == null)
       this.dealPrice = this.selectedHouseObj['거래금액']._text;
     else this.dealPrice = this.selectedHouseObj['보증금액']._text;
+
+    // if (
+    //   this.selectedHouseObj['연립다세대']._text == undefined &&
+    //   this.selectedHouseObj['아파트']._text == undefined &&
+    //   this.selectedHouseObj['보증금액']._text == undefined &&
+    //   this.selectedHouseObj['거래금액']._text == undefined
+    // )
+    //   this.$router.replace('/');
 
     this.KakaoAddress = `https://map.kakao.com/link/map/${this.aptName}, ${this.coordinates[0]}, ${this.coordinates[1]}`;
     alert(this.KakaoAddress);

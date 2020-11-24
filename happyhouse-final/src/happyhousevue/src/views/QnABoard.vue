@@ -25,7 +25,7 @@
             @input="itemsPerPage = parseInt($event, 10)"
           ></v-text-field>
         </v-col>
-        <v-col cols="3"></v-col>
+        <v-col cols="9"></v-col>
         <v-btn class="ml-4" fab small color="cyan" @click="insertQnA">
           <v-icon>
             mdi-pencil
@@ -43,7 +43,7 @@
             hide-default-footer
             class="elevation-10"
             @page-count="pageCount = $event"
-            @click:row="hello"
+            @click:row="getNum"
             v-model="detailno"
             :loading="loading"
           >
@@ -67,7 +67,7 @@
           </v-col>
           <v-col class></v-col>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="6" class="pt-0">
           <router-view :key="$route.fullPath"></router-view>
           <!-- <detail></detail>
           <update></update> -->
@@ -82,6 +82,7 @@ import http from '../../http-common';
 export default {
   data() {
     return {
+      icon: 'mdi-pencil',
       detailno: 0,
       page: 1,
       pageCount: 0,
@@ -119,16 +120,19 @@ export default {
     showQnA() {
       http
         .get('qna/showQnA')
-        .then((response) => (this.articles = response.data))
+        .then((response) => {
+          this.articles = response.data;
+          this.detailno = this.articles[0].no;
+        })
         .catch(() => {
           this.errored = true;
         })
         .finally(() => (this.loading = false));
     },
-    hello(v) {
+    getNum(v) {
       this.detailno = v.no;
       // this.$router.push('/happyhouse/qna');
-      // alert(v.no + 'hello' + this.detailno);
+      // alert(v.no + 'getNum' + this.detailno);
       // console.log('/happyhouse/qna/' + v.no + '/detail');
       // this.$router.push('/happyhouse/qna/' + v.no + '/detail');
     },

@@ -24,7 +24,11 @@ const requireAuth = () => (to, from, next) => {
 
   if (store.getters.getAccessToken) {
     return next();
-  } else next('/happyhouse/login' + nextRoute);
+  } else {
+    // console.log(nextRoute.substring(11));
+    // return next('/happyhouse/login' + nextRoute.substring(11));
+    return next('/happyhouse/login' + nextRoute);
+  }
 };
 
 const routes = [
@@ -34,12 +38,14 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
+    alias: '/happyhouse',
     component: Main,
   },
 
   {
     path: '/happyhouse/houseData',
     name: 'HouseData',
+    beforeEnter: requireAuth(),
     component: HouseData,
   },
 
@@ -47,6 +53,7 @@ const routes = [
     path: '/happyhouse/houseDetailData',
     name: 'HouseDetailData',
     component: HouseDetailData,
+    beforeEnter: requireAuth(),
     props: true,
     children: [
       {
@@ -74,6 +81,12 @@ const routes = [
     name: 'QnA',
     component: QnA,
   },
+  {
+    path: '/happyhouse/qna/insert',
+    name: 'InsertQnA',
+    component: InsertQnA,
+    beforeEnter: requireAuth(),
+  },
 
   {
     path: '/happyhouse/qna/:no',
@@ -96,16 +109,12 @@ const routes = [
         component: UpdateQnA,
         props: true,
       },
-      {
-        path: '',
-        name: 'InsertQnA',
-        component: InsertQnA,
-      },
     ],
   },
   {
     path: '/happyhouse/notice',
     name: 'notice',
+    beforeEnter: requireAuth(),
     component: Notice,
   },
   {
@@ -113,11 +122,23 @@ const routes = [
     name: 'Login',
     component: Login,
   },
+  // {
+  //   path: '/happyhouse/login/:nextRoute',
+  //   name: 'LoginNextRoute',
+  //   component: Login,
+  // },
+
   {
-    path: '/happyhouse/login/:nextRoute',
+    path: '/happyhouse/login/:firstKey/:secondKey',
     name: 'LoginNextRoute',
     component: Login,
   },
+  {
+    path: '/happyhouse/login/:firstKey/:secondKey/:thirdKey',
+    name: 'LoginThirdRoute',
+    component: Login,
+  },
+
   {
     path: '/happyhouse/join',
     name: 'Join',

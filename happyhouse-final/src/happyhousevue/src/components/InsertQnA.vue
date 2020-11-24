@@ -1,12 +1,13 @@
 <template>
   <div>
     <div v-if="!submitted">
-      <v-card class="pa-6 mx-auto my-0" max-width="500">
+      <v-card class="pa-6 mx-auto my-12" max-width="500">
         <v-card-title>게시물 등록</v-card-title>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="inputData.userid"
-            label="아이디->자동입력되도록"
+            label="아이디"
+            disabled
             required
           ></v-text-field>
           <v-text-field
@@ -49,7 +50,7 @@
 </template>
 <script>
 import http from '../../http-common';
-
+import { mapGetters } from 'vuex';
 export default {
   name: 'InsertQnA',
   props: ['no'],
@@ -64,21 +65,6 @@ export default {
       submitted: false,
       inputData: {},
     };
-  },
-  mounted() {
-    // console.log(this.no, 'is nice');
-    // http
-    //   .get('/qna/inputDataQnA/' + this.no)
-    //   .then((response) => {
-    //     this.inputData = response.data;
-    //     console.log(this.inputData);
-    //   })
-    //   .catch(() => {
-    //     this.errored = true;
-    //   })
-    //   .finally(() => {
-    //     this.loading = false;
-    //   });
   },
   methods: {
     validate() {
@@ -136,6 +122,14 @@ export default {
           this.$router.push('/happyhouse/qna');
         });
     },
+  },
+  computed: {
+    ...mapGetters(['getAccessToken', 'getUserId', 'getUserId']),
+  },
+  created() {
+    // alert('hello created');
+    this.inputData.userid = this.getUserId;
+    // alert(this.inputData.userid + 'hello?');
   },
 };
 </script>

@@ -60,7 +60,61 @@ export default {
 
   computed: {
     nextRoute() {
-      return this.$route.params.nextRoute ? this.$route.params.nextRoute : '';
+      // this.$router.params.nextRoute =
+      //   '/happyhouse/' + this.$route.params.nextRoute;
+      // alert(this.$route.params.firstKey + '/' + this.$route.params.secondKey);
+      let _this = this;
+      // if (_this.$router.params.thirdKey) {
+      //   alert(
+      //     _this.$route.params.firstKey +
+      //       '/' +
+      //       _this.$route.params.secondKey +
+      //       '/' +
+      //       _this.$router.params.thirdKey
+      //   );
+      //   return (
+      //     _this.$route.params.firstKey +
+      //     '/' +
+      //     _this.$route.params.secondKey +
+      //     '/' +
+      //     _this.$router.params.thirdKey
+      //   );
+      // }
+
+      if (_this.$route.params.thirdKey) {
+        alert(
+          'after mix 3 :' +
+            _this.$route.params.firstKey +
+            '/' +
+            _this.$route.params.secondKey +
+            '/' +
+            _this.$route.params.thirdKey
+        );
+        return (
+          _this.$route.params.firstKey +
+          '/' +
+          _this.$route.params.secondKey +
+          '/' +
+          _this.$route.params.thirdKey
+        );
+      } else if (_this.$route.params.secondKey) {
+        alert(
+          'after mix 2 :' +
+            _this.$route.params.firstKey +
+            '/' +
+            _this.$route.params.secondKey
+        );
+        return (
+          _this.$route.params.firstKey + '/' + _this.$route.params.secondKey
+        );
+      } else {
+        alert('아무고토 없어요 else ');
+        return '';
+      }
+
+      // if(this.$router.params.thirdKey){
+      //   return this.$route.params.firstKey + '/' + this.$route.params.secondKey + '/' + this.$router.params.thirdKey;
+      // }
     },
   },
 
@@ -68,9 +122,15 @@ export default {
     login: function() {
       // LOGIN 액션 실행
       // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
+      // alert('hello');
+      // alert(this.nextRoute + ' hello');
+      alert('end hello');
       this.$store
         .dispatch('LOGIN', this.user)
-        .then(() => this.$router.replace(`/${this.nextRoute}`))
+        .then(() => {
+          alert(this.nextRoute + ' nextRoute recpog');
+          this.$router.replace(`/${this.nextRoute}`);
+        })
         .catch(({ message }) => (this.msg = message));
     },
   },

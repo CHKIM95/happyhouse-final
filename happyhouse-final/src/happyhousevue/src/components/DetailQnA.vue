@@ -24,7 +24,7 @@
           </div>
         </v-row>
         <v-card-actions>
-          <v-row>
+          <v-row v-if="detail.userid == getUserId">
             <v-col cols="4"></v-col>
             <v-col cols="8">
               <v-btn
@@ -70,6 +70,8 @@
 
 <script>
 import http from '../../http-common';
+
+import { mapGetters } from 'vuex';
 export default {
   name: 'detailQnA',
   props: ['no'],
@@ -84,6 +86,7 @@ export default {
   methods: {
     updateQnA: function() {
       // alert(this.no + '의 게시글를 수정할것입니다.');
+
       this.$router.push('/happyhouse/qna/' + this.no + '/update');
     },
     fetchData() {
@@ -118,6 +121,9 @@ export default {
   },
   watch: {
     $route: 'fecthData',
+  },
+  computed: {
+    ...mapGetters(['getAccessToken', 'getUserId', 'getUserId']),
   },
   created() {
     // alert(this.no);

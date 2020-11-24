@@ -1,7 +1,7 @@
 <template>
   <!-- 그래프 자리
           <button class="button" @click="addExperience">Add experience</button> -->
-  <v-row>
+  <div class="mx-auto">
     <div class="Chart">
       <DoughnutExample
         ref="skills_chart"
@@ -28,7 +28,7 @@
               <button @click="remove(i)">remove</button> -->
       <!-- </div> -->
     </div>
-  </v-row>
+  </div>
 </template>
 
 <script>

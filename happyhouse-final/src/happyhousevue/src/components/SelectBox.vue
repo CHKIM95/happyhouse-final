@@ -66,6 +66,9 @@ export default {
     selectedGugun: '',
   }),
   created() {
+    // if (this.selectedGugun == '') {
+    //   this.$router.replace('/');
+    // }
     axios.get(`${SERVER_URL}/house/sido`).then((response) => {
       this.sido = response.data;
     });
