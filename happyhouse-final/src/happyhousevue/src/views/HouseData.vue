@@ -138,7 +138,7 @@ export default {
   },
 
   mounted() {
-    // console.log(typeOf(this.gugun));
+    if (this.inputSelectedData == '') this.$router.replace('/');
     this.showData(this.inputSelectedData);
   },
 };
