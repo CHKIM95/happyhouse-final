@@ -86,7 +86,9 @@
           <i>우리 주변 코로나 정보</i>
         </h3>
       </v-row>
+
       <v-row justify="space-around" class="mt-3 mb-10">
+        <v-btn @click="showKakaoMap">카카오 맵으로 보기</v-btn>
         <v-btn @click="showGraph">건물 스펙 한눈에 보기</v-btn>
         <v-btn @click="showHospital">안심 병원 보기</v-btn>
         <v-btn @click="showClinic">진료소 보기</v-btn>
@@ -112,6 +114,9 @@ export default {
     dialog: false,
     hospitalList: [],
     clinicList: [],
+    selectedHouseObj: {},
+    coordinates: null,
+    KakaoAddress: '',
   }),
   methods: {
     showGraph: function() {
@@ -130,6 +135,22 @@ export default {
       });
       // this.$router.push('/happyhouse/houseDetailData/hospitalData');
     },
+
+    showKakaoMap: function() {
+      // console.log(this.hospitalList);
+      // let propsHospitalData = this.hospitalList;
+      // this.$router.push(
+      //   '/happyhouse/houseDetailData/hospitalData',
+      //   propsHospitalData
+      // );
+      // this.$router.push({
+      //   name: 'HospitalData',
+      //   params: { propsHospitalData: this.hospitalList },
+      // });
+      //"_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
+      window.open(this.KakaoAddress);
+    },
+
     showClinic: function() {
       // let propsClinicData = this.clinicList;
       console.log(this.clinicList);
@@ -173,9 +194,11 @@ export default {
     // },
   },
   computed: {},
-  props: ['selectedHouseObj'],
+  props: ['selectedHouseObjArr'],
   mounted() {
-    console.log(this.selectedHouseObj['연립다세대']);
+    this.selectedHouseObj = this.selectedHouseObjArr[0];
+    this.coordinates = this.selectedHouseObjArr[1];
+
     if (
       (((this.selectedHouseObj['연립다세대'] == undefined &&
         this.selectedHouseObj['아파트']) == undefined &&
@@ -190,10 +213,13 @@ export default {
     if (this.selectedHouseObj['보증금액'] == null)
       this.dealPrice = this.selectedHouseObj['거래금액']._text;
     else this.dealPrice = this.selectedHouseObj['보증금액']._text;
-    console.log(this.aptName + ' ' + this.dealPrice);
+
+    this.KakaoAddress = `https://map.kakao.com/link/map/${this.aptName}, ${this.coordinates[0]}, ${this.coordinates[1]}`;
+    alert(this.KakaoAddress);
   },
   created() {
     let _this = this;
+    _this.selectedHouseObj = _this.selectedHouseObjArr[0];
     axios
       .get(
         `${SERVER_URL}/surrounding/hospital?gugun=${_this.selectedHouseObj['지역코드']._text}`

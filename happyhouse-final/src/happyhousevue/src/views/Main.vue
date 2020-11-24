@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a href="https://map.kakao.com/link/map/37.402056,127.108212"> 이동 </a>
     <v-container fluid>
       <v-row justify="center">
         <v-img

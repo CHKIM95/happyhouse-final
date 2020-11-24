@@ -1,7 +1,11 @@
 <template>
   <v-row style="height:500px">
     <v-col cols="4" sm="4">
-      <KakaoMap :propsListData="hospitalData" :mapId="hospitalMapId" />
+      <KakaoMap
+        :propsListData="hospitalData"
+        :mapId="hospitalMapId"
+        @selectedEmitObjArr="getDetailInfo"
+      />
     </v-col>
     <v-col cols="8" sm="8">
       <v-data-table
@@ -11,7 +15,7 @@
         :items-per-page="itemsPerPage"
         @page-count="pageCount = $event"
         hide-default-footer
-        @click:row="getDetailInfo"
+        @click:row="preprocessFunc"
       >
       </v-data-table>
 
@@ -22,6 +26,50 @@
         circle
       ></v-pagination>
     </v-col>
+
+    <v-dialog v-model="dialog" persistent max-width="600">
+      <v-card>
+        <v-card-title>
+          <span class="headline">병원 정보</span>
+        </v-card-title>
+        <v-card-text>
+          <v-simple-table>
+            <tbody>
+              <tr>
+                <td>병원명</td>
+                <td>{{ selectedHospital['name'] }}</td>
+              </tr>
+              <tr>
+                <td>시도</td>
+                <td>{{ selectedHospital['sido'] }}</td>
+              </tr>
+              <tr>
+                <td>구군</td>
+                <td>{{ selectedHospital['gugun'] }}</td>
+              </tr>
+              <tr>
+                <td>주소</td>
+                <td>{{ selectedHospital['address'] }}</td>
+              </tr>
+              <tr>
+                <td>병원 타입</td>
+                <td>{{ selectedHospital['type'] }}</td>
+              </tr>
+              <tr>
+                <td>전화번호</td>
+                <td>{{ selectedHospital['tel'] }}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -50,11 +98,13 @@ export default {
       { text: '타입', value: 'type' },
       { text: '전화번호', value: 'tel' },
     ],
+    selectedHospital: {},
     hospitalData: [],
     hospitalMapId: 'hospitalMap',
     page: '',
     itemsPerPage: '5',
     pageCount: '10',
+    dialog: false,
   }),
 
   props: ['propsGugunCode'],
@@ -66,10 +116,23 @@ export default {
   created() {
     let _this = this;
     axios
-      .get(`${SERVER_URL}/surrounding/clinic?gugun=${_this.propsGugunCode}`)
+      .get(`${SERVER_URL}/surrounding/hospital?gugun=${_this.propsGugunCode}`)
       .then((response) => {
         _this.hospitalData = response.data;
       });
+  },
+
+  methods: {
+    preprocessFunc: function(data) {
+      let dataArr = [];
+      dataArr[0] = data;
+      dataArr[1] = null;
+      this.getDetailInfo(dataArr);
+    },
+    getDetailInfo: function(data) {
+      this.selectedHospital = data[0];
+      this.dialog = true;
+    },
   },
 };
 </script>

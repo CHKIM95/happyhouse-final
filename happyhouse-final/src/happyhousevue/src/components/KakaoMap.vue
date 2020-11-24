@@ -11,7 +11,7 @@
 let staticMap = null;
 
 export default {
-  props: ['propsListData', 'mapId', 'propsHeight', 'propsWidth'],
+  props: ['propsListData', 'mapId'],
   watch: {
     propsListData: function() {
       this.makeMap();
@@ -98,7 +98,10 @@ export default {
 
             // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
             kakao.maps.event.addListener(marker, 'click', function() {
-              _this.$emit('selectedEmitObj', nowObj);
+              let arr = [];
+              arr[0] = nowObj;
+              arr[1] = [result[0].y, result[0].x];
+              _this.$emit('selectedEmitObjArr', arr);
             });
             kakao.maps.event.addListener(marker, 'mouseover', function() {
               overlay.setMap(map);

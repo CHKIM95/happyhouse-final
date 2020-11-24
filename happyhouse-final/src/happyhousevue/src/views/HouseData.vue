@@ -6,7 +6,7 @@
         <KakaoMap
           :propsListData="houseData"
           :mapId="houseMapId"
-          @selectedEmitObj="getDetailInfo"
+          @selectedEmitObjArr="getDetailInfo"
         />
       </v-row>
       <v-data-table
@@ -15,7 +15,7 @@
         :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
-        @click:row="getDetailInfo"
+        @click:row="getCoordinates"
         @page-count="pageCount = $event"
       >
       </v-data-table>
@@ -107,8 +107,32 @@ export default {
         });
     },
 
+    getCoordinates: function(data) {
+      let objArr = [];
+      let _this = this;
+      this.selectedHouseObj = data;
+      let geocoder = new kakao.maps.services.Geocoder();
+
+      let searchAddress = '';
+      searchAddress += this.selectedHouseObj['법정동']._text;
+      searchAddress += ' ';
+      searchAddress += this.selectedHouseObj['지번']._text;
+      alert(searchAddress);
+      // 주소로 좌표를 검색합니다
+      geocoder.addressSearch(searchAddress, function(result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+          objArr[0] = data;
+          objArr[1] = [result[0].y, result[0].x];
+          alert(objArr[0]);
+          alert(objArr[1]);
+          alert(objArr[1]);
+          _this.getDetailInfo(objArr);
+        }
+      });
+    },
     getDetailInfo: function(data) {
-      this.$emit('selectedHouseObj', data);
+      this.$emit('selectedHouseObjArr', data);
     },
   },
 
