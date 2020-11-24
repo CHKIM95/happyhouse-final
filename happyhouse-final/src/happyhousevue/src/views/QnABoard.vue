@@ -26,19 +26,16 @@
           ></v-text-field>
         </v-col>
         <v-col cols="3"></v-col>
-        <v-col class="mb-0 pb-0" cols="1"
-          ><v-btn class="mx-2" fab small color="cyan" @click="insertQnA">
-            <v-icon dark>
-              mdi-pencil
-            </v-icon>
-          </v-btn>
-        </v-col>
+        <v-btn class="ml-4" fab small color="cyan" @click="insertQnA">
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
       </v-row>
       <!-- <v-parallax src="@/assets/QnABoard-banner.jpg" height="300"></v-parallax> -->
       <v-row class="mt-0" justify="center">
         <v-col class="mt-0 pt-0" cols="6">
           <v-data-table
-            dark
             :headers="headers"
             :items="articles"
             :page.sync="page"

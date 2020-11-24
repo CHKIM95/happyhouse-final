@@ -1,8 +1,11 @@
 <template>
   <div class="ma-auto">
     <v-card max-width="500" class="px-10 pb-5">
-      <v-card-title class="justify-center pb-0">
-        "집중"에 로그인
+      <v-card-title sub class="subtitle-1 justify-center pb-0">
+        집중할 준비, 되셨나요?
+      </v-card-title>
+      <v-card-title sub class="my-2 justify-center pa-0">
+        <h2>"로그인"</h2>
       </v-card-title>
       <v-card-text>
         <v-form v-model="valid">

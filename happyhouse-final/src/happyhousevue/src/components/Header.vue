@@ -2,8 +2,18 @@
   <div>
     <v-app-bar color="#4181A6" class="white--text" dense dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>ZipZung</v-toolbar-title>
+      <v-btn text @click="goHome">
+        집중, My Home, Precious Home
+      </v-btn>
+      <v-btn fab small color="cyan" to="/">
+        <v-img
+          position="center"
+          max-height="30"
+          max-width="30"
+          src="@/assets/Zip-Zung.png"
+          class="float:left; margin-right:20px; margin-top:20px; clear:both;"
+        ></v-img>
+      </v-btn>
 
       <!-- <v-btn icon right>
         <v-icon>mdi-heart</v-icon>
@@ -44,7 +54,14 @@
           active-class="deep-purple--text text--accent-4"
         >
           <v-list-item to="/">
-            <v-list-item-title>Home</v-list-item-title>
+            홈으로 돌아가기
+            <v-img
+              position="center"
+              max-height="30"
+              max-width="30"
+              class="float:left; margin-right:20px; margin-top:20px; clear:both;"
+              src="@/assets/Zip-Zung.png"
+            ></v-img>
           </v-list-item>
           <v-list-item to="/happyhouse/qna">
             <v-list-item-title>QnA 게시판</v-list-item-title>
@@ -86,6 +103,9 @@ export default {
     ...mapGetters(['getAccessToken', 'getUserId', 'getUserName']),
   },
   methods: {
+    goHome() {
+      this.$router.push('/');
+    },
     onClickLogout() {
       this.$store
         .dispatch('LOGOUT')

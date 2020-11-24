@@ -1,16 +1,16 @@
 <template>
   <!-- 그래프 자리
           <button class="button" @click="addExperience">Add experience</button> -->
-  <div class="Chart">
-    안녕?
-    <DoughnutExample
-      ref="skills_chart"
-      :chart-data="chartData"
-      :options="options"
-    >
-    </DoughnutExample>
+  <v-row>
+    <div class="Chart">
+      <DoughnutExample
+        ref="skills_chart"
+        :chart-data="chartData"
+        :options="options"
+      >
+      </DoughnutExample>
 
-    <!-- <div v-for="(val, i) in currentDataSet" :key="i">
+      <!-- <div v-for="(val, i) in currentDataSet" :key="i">
               <input
                 type="range"
                 min="1"
@@ -26,8 +26,9 @@
                 @input="updateName($event.target.value, i)"
               />
               <button @click="remove(i)">remove</button> -->
-    <!-- </div> -->
-  </div>
+      <!-- </div> -->
+    </div>
+  </v-row>
 </template>
 
 <script>
@@ -83,7 +84,7 @@ export default {
     // }
 
     chartData: {
-      labels: ['먹거리', '공기', '문화생활', '안전지수'],
+      labels: ['이 건물 주변 정보에요!'],
       datasets: [
         {
           // backgroundColor: [randomColor()],

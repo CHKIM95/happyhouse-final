@@ -1,8 +1,14 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
-      <v-row>
-        <v-col cols="12" md="4">
+  <div class="my-10 mx-auto" style="min-width:600px">
+    <v-card class="px-10 pb-5">
+      <v-card-title sub class="subtitle-1 justify-center pb-0">
+        집중해보고 싶으세요?
+      </v-card-title>
+      <v-card-title sub class="my-2 justify-center pa-0">
+        <h2>"회원가입"</h2>
+      </v-card-title>
+      <v-form v-model="valid">
+        <v-container>
           <v-text-field
             v-model="user.userid"
             :rules="idRules"
@@ -10,10 +16,6 @@
             label="아이디"
             required
           ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
             v-model="user.userpwd"
             type="Password"
@@ -22,11 +24,8 @@
             required
             placeholder="비밀번호를 입력해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
+            dense
             v-model="confirmPassword"
             type="Password"
             :rules="[user.userpwd === confirmPassword || 'Password must match']"
@@ -34,11 +33,6 @@
             required
             placeholder="비밀번호를 확인해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
             v-model="user.username"
             :rules="nameRules"
@@ -46,54 +40,48 @@
             required
             placeholder="이름을 입력해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
+            dense
             v-model="user.email"
             :rules="emailRules"
             label="이메일"
             required
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="8" md="4">
-          <v-text-field
-            id="userAddressCode"
-            label="우편번호"
-            required
-            placeholder="우편번호를 검색해주세요"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="4" md="4">
-          <v-btn primary @click="searchAddress">
-            검색
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="4">
+          <v-row>
+            <v-col cols="6" class="pr-1">
+              <v-text-field
+                id="userAddressCode"
+                label="우편번호"
+                required
+                disabled
+                placeholder="우편번호를 검색해주세요"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6" class="mt-2 pl-0 pb-0 mb-0">
+              <v-btn
+                class="float:left; margin-right:20px; margin-top:20px; clear:both;"
+                primary
+                @click="searchAddress"
+              >
+                검색
+              </v-btn>
+            </v-col>
+          </v-row>
           <v-text-field
             v-model="user.address"
             id="userRoadAddress"
             label="도로명 주소"
             required
+            disabled
             placeholder="도로명 주소"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-btn depressed color="primary" @click="joinUser">
-          회원 가입
-        </v-btn>
-      </v-row>
-    </v-container>
-  </v-form>
+          <v-btn class="ml-auto" depressed color="primary" @click="joinUser">
+            회원 가입
+          </v-btn>
+        </v-container>
+      </v-form>
+    </v-card>
+  </div>
 </template>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
