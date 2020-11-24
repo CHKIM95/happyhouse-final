@@ -1,8 +1,5 @@
 <template>
-  <v-container>
-    <!-- {{ isClicked }} -->
-    <div :id="mapId" style="width:80%; height:500px; margin:0 auto;"></div>
-  </v-container>
+  <div :id="mapId" style="width:80%; height:80%; margin:0 auto;"></div>
 </template>
 
 <script
@@ -17,6 +14,11 @@ export default {
   props: ['propsListData', 'mapId'],
   watch: {
     propsListData: function() {
+      this.makeMap();
+    },
+  },
+  methods: {
+    makeMap: function() {
       let _this = this;
       let addressKey = '';
       let nameKey = '';
@@ -112,6 +114,9 @@ export default {
       });
       map.relayout();
     },
+  },
+  created() {
+    this.makeMap();
   },
 };
 </script>

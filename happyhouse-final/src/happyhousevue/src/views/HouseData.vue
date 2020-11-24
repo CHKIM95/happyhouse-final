@@ -2,13 +2,13 @@
   <div>
     <SelectBox @selectedHouseType="showData" />
     <v-container>
-      <KakaoMap
-        :propsListData="houseData"
-        :mapId="houseMapId"
-        @selectedEmitObj="getDetailInfo"
-      />
-
-      <br />
+      <v-row style="height:500px">
+        <KakaoMap
+          :propsListData="houseData"
+          :mapId="houseMapId"
+          @selectedEmitObj="getDetailInfo"
+        />
+      </v-row>
       <v-data-table
         :headers="headers"
         :items="houseData"

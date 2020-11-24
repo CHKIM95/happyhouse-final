@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <v-container>
+  <v-row>
+    <v-col cols="4" sm="4">
+      <KakaoMap :propsListData="clinicData" :mapId="clinicMapId" />
+    </v-col>
+    <v-col cols="8" sm="8">
       <v-data-table
         :headers="headers"
-        :items="propsClinicData"
+        :items="clinicData"
         :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
@@ -17,16 +20,14 @@
         :total-visible="10"
         circle
       ></v-pagination>
-    </v-container>
-    <v-container>
-      <KakaoMap :propsListData="clinicData" :mapId="clinicMapId" />
-    </v-container>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import KakaoMap from '../components/KakaoMap.vue';
-
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data: () => ({
     clinicData: [],
@@ -48,14 +49,21 @@ export default {
     pageCount: '10',
   }),
 
-  props: ['propsClinicData'],
+  props: ['propsGugunCode'],
 
   components: {
     KakaoMap,
   },
 
   created() {
-    this.clinicData = this.propsClinicData;
+    let _this = this;
+    // _this.clinicData = this.propsClinicData;
+    // alert(_this.clinicData);
+    axios
+      .get(`${SERVER_URL}/surrounding/clinic?gugun=${this.propsGugunCode}`)
+      .then((response) => {
+        _this.clinicData = response.data;
+      });
   },
 };
 </script>
