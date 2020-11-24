@@ -1,12 +1,9 @@
 <template>
   <div>
     <v-container>
-      <KakaoMap :propsListData="propsClinicData" :mapId="clinicMapId" />
-    </v-container>
-    <v-container>
       <v-data-table
         :headers="headers"
-        :items="propsHospitalData"
+        :items="propsClinicData"
         :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
@@ -21,19 +18,18 @@
         circle
       ></v-pagination>
     </v-container>
+    <v-container>
+      <KakaoMap :propsListData="clinicData" :mapId="clinicMapId" />
+    </v-container>
   </div>
 </template>
-
-<script
-  type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dfebd97b0ebbc269f439edcad3f447ac&libraries=services"
-></script>
 
 <script>
 import KakaoMap from '../components/KakaoMap.vue';
 
 export default {
   data: () => ({
+    clinicData: [],
     headers: [
       {
         text: '진료소명',
@@ -56,6 +52,10 @@ export default {
 
   components: {
     KakaoMap,
+  },
+
+  created() {
+    this.clinicData = this.propsClinicData;
   },
 };
 </script>

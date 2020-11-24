@@ -53,7 +53,7 @@ public class QnAController {
 		System.out.println("hello");
 		//TODO 목록에 값이 없을때
 		List<QnADto> qnas = qnaService.showQnA();
-		System.out.println(qnas);
+//		System.out.println(qnas);
 		// TODO null이면??
 //		if (qnas.isEmpty()) {
 //			return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -101,7 +101,7 @@ public class QnAController {
 	@RequestMapping(value = "/detailQnA/{no}", method = RequestMethod.GET)
 	public ResponseEntity<QnADto> detailQnA(@PathVariable int no) throws Exception {
 		logger.info("detailQnA - 호출 " + new Date());
-		System.out.println(no);
+//		System.out.println(no);
 		QnADto qna = qnaService.detailQnA(no);
 		//TODO if qnas.getNo == -1 return "NO_CONTENT" 
 		if (qna == null || qna.getNo() == -1) {

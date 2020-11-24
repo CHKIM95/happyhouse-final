@@ -112,9 +112,9 @@ export default {
       this.$router.push('/happyhouse/qna');
       window.location.reload();
     },
-    goBack: function() {
-      this.$router.replace('/happyhouse/qna');
-    },
+    // goBack: function() {
+    //   this.$router.replace('/happyhouse/qna');
+    // },
   },
   watch: {
     $route: 'fecthData',

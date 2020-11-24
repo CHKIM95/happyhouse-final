@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    {{ isClicked }}
+    <!-- {{ isClicked }} -->
     <div :id="mapId" style="width:80%; height:500px; margin:0 auto;"></div>
   </v-container>
 </template>

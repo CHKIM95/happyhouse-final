@@ -1,9 +1,6 @@
 <template>
   <div>
     <v-container>
-      <KakaoMap :propsListData="propsHospitalData" :mapId="hospitalMapId" />
-    </v-container>
-    <v-container>
       <v-data-table
         :headers="headers"
         :items="propsHospitalData"
@@ -20,6 +17,9 @@
         :total-visible="10"
         circle
       ></v-pagination>
+    </v-container>
+    <v-container>
+      <KakaoMap :propsListData="propsHospitalData" :mapId="hospitalMapId" />
     </v-container>
   </div>
 </template>

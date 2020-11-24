@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import QnA from '../views/QnABoard.vue';
 import UpdateQnA from '../components/UpdateQnA.vue';
 import DetailQnA from '../components/DetailQnA.vue';
+import InsertQnA from '../components/InsertQnA.vue';
 import Notice from '../views/NoticeBoard.vue';
 import Login from '../views/Login.vue';
 import Me from '../views/Me.vue';
@@ -11,6 +12,9 @@ import store from '../store';
 import Main from '../views/Main.vue';
 import HouseData from '../views/HouseData.vue';
 import HouseDetailData from '../views/HouseDetailData.vue';
+import GraphData from '../components/GraphData.vue';
+import HospitalData from '../views/HospitalData.vue';
+import ClinicData from '../views/ClinicData.vue';
 
 Vue.use(VueRouter);
 
@@ -43,13 +47,34 @@ const routes = [
     path: '/happyhouse/houseDetailData',
     name: 'HouseDetailData',
     component: HouseDetailData,
+    props: true,
+    children: [
+      {
+        path: 'graphData',
+        name: 'GraphData',
+        component: GraphData,
+        props: true,
+      },
+      {
+        path: 'hospitalData',
+        name: 'HospitalData',
+        component: HospitalData,
+        props: true,
+      },
+      {
+        path: 'clinicData',
+        name: 'ClinicData',
+        component: ClinicData,
+        props: true,
+      },
+    ],
   },
-
   {
     path: '/happyhouse/qna',
     name: 'QnA',
     component: QnA,
   },
+
   {
     path: '/happyhouse/qna/:no',
     name: 'QnANo',
@@ -70,6 +95,11 @@ const routes = [
         name: 'UpdateQnA',
         component: UpdateQnA,
         props: true,
+      },
+      {
+        path: '',
+        name: 'InsertQnA',
+        component: InsertQnA,
       },
     ],
   },

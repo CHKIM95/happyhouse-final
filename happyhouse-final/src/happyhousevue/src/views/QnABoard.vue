@@ -13,7 +13,13 @@
         </v-col>
       </v-row>
       <v-row class="mb-0 pb-0">
-        <v-col cols="4"> </v-col>
+        <v-col cols="4"
+          ><v-btn class="mx-2" fab small color="cyan" @click="insertQnA">
+            <v-icon dark>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+        </v-col>
         <v-col cols="2">
           <v-text-field
             dense
@@ -21,7 +27,7 @@
             label="Items per page"
             type="number"
             min="-1"
-            max="10"
+            max="7"
             @input="itemsPerPage = parseInt($event, 10)"
           ></v-text-field>
         </v-col>
@@ -82,7 +88,7 @@ export default {
       detailno: 0,
       page: 1,
       pageCount: 0,
-      itemsPerPage: 10,
+      itemsPerPage: 7,
       headers: [
         {
           text: '글번호',
@@ -107,6 +113,12 @@ export default {
     },
   },
   methods: {
+    insertQnA: function() {
+      this.$router.push('/happyhouse/qna/insert');
+    },
+    updateQnA: function() {
+      this.$router.push('/happyhouse/qna/' + this.no + '/update');
+    },
     showQnA() {
       http
         .get('qna/showQnA')
