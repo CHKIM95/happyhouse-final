@@ -79,7 +79,7 @@ export default {
               '        </div>' +
               '        <div class="body">' +
               '            <div class="img">' +
-              '                <img src="" width="73" height="70">' +
+              '                <img src="https://source.unsplash.com/400x400/?house" width="73" height="70">' +
               '           </div>' +
               '           <div class="desc">' +
               addressValue +

@@ -5,7 +5,7 @@
       <v-row justify="center">
         <v-img
           position="center"
-          lazy-src="@/assets/QnABoard-banner.jpg"
+          lazy-src="@/assets/Zip-Zung.png"
           max-height="400"
           max-width="400"
           src="@/assets/main.jpg"

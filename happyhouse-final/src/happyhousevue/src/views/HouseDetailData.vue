@@ -12,10 +12,10 @@
           <v-row>
             <v-img
               position="center"
-              lazy-src="@/assets/QnABoard-banner.jpg"
+              lazy-src="@/assets/Zip-Zung.png"
               max-height="400"
               max-width="400"
-              src="@/assets/house1.jpg"
+              src="https://source.unsplash.com/400x400/?house"
             ></v-img>
           </v-row>
         </v-col>
