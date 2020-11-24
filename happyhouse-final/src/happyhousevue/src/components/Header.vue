@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-app-bar class="indigo lighten-1 white--text" dense dark>
+    <v-app-bar color="#4181A6" class="white--text" dense dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Page title</v-toolbar-title>
+      <v-toolbar-title>ZipZung</v-toolbar-title>
 
       <!-- <v-btn icon right>
         <v-icon>mdi-heart</v-icon>

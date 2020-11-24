@@ -27,11 +27,14 @@
             class="mr-4"
             @click="insertQnA"
           >
-            수정하기
+            수정
           </v-btn>
 
-          <v-btn color="error" class="mr-4" @click="reset">
-            초기화 하기
+          <v-btn color="warning" class="mr-4" @click="reset">
+            초기화
+          </v-btn>
+          <v-btn color="error" class="mr-4" @click="showQnA">
+            취소
           </v-btn>
         </v-form>
       </v-card>

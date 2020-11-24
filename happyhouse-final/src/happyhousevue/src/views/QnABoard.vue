@@ -1,5 +1,5 @@
 <template>
-  <v-main class="brown lighten-2">
+  <v-main class="grey lighten-2">
     <v-container class="py-8 px-6">
       <v-row text-align: center>
         <v-col cols="12" :justify="center">
@@ -13,15 +13,9 @@
         </v-col>
       </v-row>
       <v-row class="mb-0 pb-0">
-        <v-col cols="4"
-          ><v-btn class="mx-2" fab small color="cyan" @click="insertQnA">
-            <v-icon dark>
-              mdi-pencil
-            </v-icon>
-          </v-btn>
-        </v-col>
-        <v-col cols="2">
+        <v-col class="mb-0 pb-0" cols="2">
           <v-text-field
+            loader-height="0"
             dense
             :value="itemsPerPage"
             label="Items per page"
@@ -31,10 +25,18 @@
             @input="itemsPerPage = parseInt($event, 10)"
           ></v-text-field>
         </v-col>
+        <v-col cols="3"></v-col>
+        <v-col class="mb-0 pb-0" cols="1"
+          ><v-btn class="mx-2" fab small color="cyan" @click="insertQnA">
+            <v-icon dark>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+        </v-col>
       </v-row>
       <!-- <v-parallax src="@/assets/QnABoard-banner.jpg" height="300"></v-parallax> -->
-      <v-row class="mt-0">
-        <v-col cols="6">
+      <v-row class="mt-0" justify="center">
+        <v-col class="mt-0 pt-0" cols="6">
           <v-data-table
             dark
             :headers="headers"
@@ -56,25 +58,23 @@
               ></v-progress-linear>
             </template>
           </v-data-table>
+          <v-col md="32" offset-md="32">
+            <div class="text-center pt-2">
+              <v-pagination
+                v-model="page"
+                :length="pageCount"
+                :total-visible="10"
+                circle
+              ></v-pagination>
+            </div>
+          </v-col>
+          <v-col class></v-col>
         </v-col>
         <v-col cols="6">
           <router-view :key="$route.fullPath"></router-view>
           <!-- <detail></detail>
           <update></update> -->
         </v-col>
-      </v-row>
-      <v-row>
-        <v-col md="32" offset-md="32">
-          <div class="text-center pt-2">
-            <v-pagination
-              v-model="page"
-              :length="pageCount"
-              :total-visible="10"
-              circle
-            ></v-pagination>
-          </div>
-        </v-col>
-        <v-col class></v-col>
       </v-row>
     </v-container>
   </v-main>

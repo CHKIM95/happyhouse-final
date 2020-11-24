@@ -88,9 +88,6 @@ export default {
     reset() {
       this.$refs.form.reset();
     },
-    resetValidation() {
-      this.$refs.form.resetValidation();
-    },
     updateQnA() {
       console.log(this.detail.subject, '문제있나요');
       if (this.detail.subject == '') {
