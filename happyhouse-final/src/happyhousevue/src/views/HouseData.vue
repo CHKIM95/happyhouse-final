@@ -88,6 +88,7 @@ export default {
       _this.gugun = data[3];
       _this.houseType = data[0];
       _this.dealType = data[1];
+
       axios
         .get(
           `${SERVER_URL}/house/searchHouse?houseType=${_this.houseType}&dealType=${_this.dealType}&gugun=${_this.gugun}`
@@ -137,6 +138,7 @@ export default {
   },
 
   mounted() {
+    // console.log(typeOf(this.gugun));
     this.showData(this.inputSelectedData);
   },
 };
