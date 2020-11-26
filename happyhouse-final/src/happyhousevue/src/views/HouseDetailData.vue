@@ -15,7 +15,7 @@
               lazy-src="@/assets/logo.png"
               max-height="400"
               max-width="400"
-              src="@/assets/house2.jpg"
+              src="@/assets/house1.jpg"
             ></v-img>
           </v-row>
         </v-col>

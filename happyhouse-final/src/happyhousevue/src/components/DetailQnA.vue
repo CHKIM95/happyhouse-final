@@ -38,9 +38,6 @@
               <v-btn color="error" outlined text @click="deleteQnA">
                 삭제하기
               </v-btn>
-              <!-- <v-btn color="warning" outlined text @click="goBack">
-                QnA주소로 되돌아가기
-              </v-btn> -->
             </v-col>
           </v-row>
         </v-card-actions>

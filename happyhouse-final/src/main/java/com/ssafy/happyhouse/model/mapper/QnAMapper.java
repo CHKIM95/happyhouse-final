@@ -17,7 +17,4 @@ public interface QnAMapper {
 	public QnADto detailQnA(int no) throws SQLException;
 
 	public List<QnADto> showQnA();
-
-//	public List<QnADto> qnas(Map<String, Object> map) throws SQLException;
-//	public int getTotalCount(Map<String, String> map) throws SQLException;
 }

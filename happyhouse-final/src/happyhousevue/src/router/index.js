@@ -96,9 +96,6 @@ const routes = [
   {
     path: '/happyhouse/qna/:no',
     name: 'QnANo',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: QnA,
     props: true,
     children: [
@@ -127,11 +124,6 @@ const routes = [
     name: 'Login',
     component: Login,
   },
-  // {
-  //   path: '/happyhouse/login/:nextRoute',
-  //   name: 'LoginNextRoute',
-  //   component: Login,
-  // },
 
   {
     path: '/happyhouse/login/:firstKey/:secondKey',

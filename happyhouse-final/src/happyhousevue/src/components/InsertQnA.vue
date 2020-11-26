@@ -130,7 +130,6 @@ export default {
           }
         });
       this.submitted = true;
-      // this.showQnA();
     },
     newQnA() {
       (this.submitted = false),

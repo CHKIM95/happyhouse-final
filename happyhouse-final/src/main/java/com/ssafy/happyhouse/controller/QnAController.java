@@ -23,7 +23,6 @@ import com.ssafy.happyhouse.model.service.QnAService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-//http://localhost:8197/humans/swagger-ui.html
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 
@@ -31,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping("/qna")
 
-@Api(value = "SSAFY", description = "SSAFY Resouces Management 2019")
+@Api(value = "SSAFY", description = "Happy House 2020")
 public class QnAController {
 
 	public static final Logger logger = LoggerFactory.getLogger(QnAController.class);
@@ -51,13 +50,7 @@ public class QnAController {
 	public ResponseEntity<List<QnADto>> showQnA() throws Exception {
 		logger.info("retrieveQnA - 호출");
 		System.out.println("hello");
-		//TODO 목록에 값이 없을때
 		List<QnADto> qnas = qnaService.showQnA();
-//		System.out.println(qnas);
-		// TODO null이면??
-//		if (qnas.isEmpty()) {
-//			return new ResponseEntity(HttpStatus.NO_CONTENT);
-//		}
 		return new ResponseEntity<List<QnADto>>(qnas, HttpStatus.OK);
 	}
 
@@ -101,9 +94,7 @@ public class QnAController {
 	@RequestMapping(value = "/detailQnA/{no}", method = RequestMethod.GET)
 	public ResponseEntity<QnADto> detailQnA(@PathVariable int no) throws Exception {
 		logger.info("detailQnA - 호출 " + new Date());
-//		System.out.println(no);
-		QnADto qna = qnaService.detailQnA(no);
-		//TODO if qnas.getNo == -1 return "NO_CONTENT" 
+		QnADto qna = qnaService.detailQnA(no); 
 		if (qna == null || qna.getNo() == -1) {
 			System.out.println(qna.getNo()+"fail");
 			return new ResponseEntity<QnADto>(qna,HttpStatus.NO_CONTENT);

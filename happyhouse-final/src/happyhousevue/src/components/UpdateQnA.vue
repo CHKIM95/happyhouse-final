@@ -111,8 +111,6 @@ export default {
           if (response.data == 'success') {
             this.$router.replace('/update/success');
             this.$swal('게시물을 수정하였습니다.', '', 'success');
-            // this.$router.replace('/happyhouse/qna');
-            // window.location.reload();
           } else {
             this.$swal('게시물을 수정 하지 못했습니다.', '', 'error');
           }

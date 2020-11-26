@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/surrounding")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
-@Api(value = "SSAFY", description = "SSAFY Resouces Management 2019")
+@Api(value = "SSAFY", description = "Happy House 2020")
 public class SurroundingController {
 
 	@Autowired
@@ -51,7 +51,6 @@ public class SurroundingController {
 	@ApiOperation(value = "해당 시도의 대기 정보를 반환한다", response = List.class)
 	@RequestMapping(value = "/air", method = RequestMethod.GET)
 	public String getAir(@RequestParam String sidoOrigin) throws Exception {
-//		String[] sidogugunString = sidogugun.split(" ");
 		Map<String, String> map = new HashMap<String, String>(){{
 				put("서울특별시", "서울");
 				put("부산광역시", "부산");

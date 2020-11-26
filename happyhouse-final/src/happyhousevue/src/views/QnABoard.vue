@@ -33,7 +33,6 @@
             </v-icon>
           </v-btn>
         </v-row>
-        <!-- <v-parallax src="@/assets/QnABoard-banner.jpg" height="300"></v-parallax> -->
         <v-row class="mt-0" justify="center">
           <v-col class="mt-0 pt-0" cols="6">
             <v-data-table
@@ -69,8 +68,6 @@
           </v-col>
           <v-col cols="6" class="pt-0">
             <router-view :key="$route.fullPath"></router-view>
-            <!-- <detail></detail>
-          <update></update> -->
           </v-col>
         </v-row>
       </v-container>
@@ -92,7 +89,6 @@ export default {
         {
           text: '글번호',
           align: 'start',
-          // sortable: false,
           value: 'no',
         },
         { text: '글쓴이', value: 'userid' },

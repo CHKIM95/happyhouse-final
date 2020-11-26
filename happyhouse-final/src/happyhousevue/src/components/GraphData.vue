@@ -1,41 +1,19 @@
 <template>
-  <!-- 그래프 자리
-          <button class="button" @click="addExperience">Add experience</button> -->
   <div class="mx-auto">
     <div class="Chart">
-      <DoughnutExample
+      <InformationChart
         ref="skills_chart"
         :chart-data="chartData"
         :options="options"
       >
-      </DoughnutExample>
-
-      <!-- <div v-for="(val, i) in currentDataSet" :key="i">
-              <input
-                type="range"
-                min="1"
-                max="8"
-                placeholder="name"
-                :value="currentDataSet[i]"
-                @input="updateAmount($event.target.value, i)"
-              />
-              <span> {{ currentDataSet[i] }} years </span>
-              <input
-                type="text"
-                :value="chartData.labels[i]"
-                @input="updateName($event.target.value, i)"
-              />
-              <button @click="remove(i)">remove</button> -->
-      <!-- </div> -->
+      </InformationChart>
     </div>
   </div>
 </template>
 
 <script>
-import DoughnutExample from './DoughnutChart';
-// import randomColor from 'randomcolor';
+import InformationChart from './InformationChart.vue';
 
-// chart
 const options = {
   responsive: true,
   maintainAspectRatio: false,
@@ -59,35 +37,20 @@ const options = {
 };
 export default {
   components: {
-    DoughnutExample,
+    InformationChart,
   },
   computed: {
-    // chart
     currentDataSet() {
       return this.chartData.datasets[0].data;
     },
   },
   data: () => ({
-    // chart
     options,
-    //  {
-    // maintainAspectRatio: true,
-    // scales: {
-    //   yAxes: [
-    //     {
-    //       ticks: {
-    //         beginAtZero: true,
-    //       },
-    //     },
-    //   ],
-    // },
-    // }
 
     chartData: {
       labels: ['이 건물 주변 정보에요!'],
       datasets: [
         {
-          // backgroundColor: [randomColor()],
           label: ['먹거리'],
           backgroundColor: ['#B2A59F'],
           data: [2],

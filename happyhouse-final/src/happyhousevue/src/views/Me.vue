@@ -117,9 +117,7 @@ export default {
     axios
       .get(`${SERVER_URL}/user/info`)
       .then((response) => {
-        // console.log(this.user);
         this.user = response.data.user;
-        // console.log(this.user);
       })
       .catch(() => {
         this.$store.dispatch('LOGOUT').then(() => this.$router.replace('/'));
@@ -156,7 +154,6 @@ export default {
               } else {
                 this.$swal('수정 실패 :)', '', 'error');
               }
-              // alert(this.user.username);
               this.$router.replace('/');
             });
           } else {

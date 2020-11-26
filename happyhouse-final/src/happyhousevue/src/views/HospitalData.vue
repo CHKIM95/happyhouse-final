@@ -40,16 +40,6 @@
                 <td>{{ selectedHospital['name'] }}</td>
               </tr>
               <tr>
-                <!-- <td>시도</td>
-                <td>{{ selectedHospital['sido'] }}</td>
-              </tr>
-              <tr>
-                <td>구군</td>
-                <td>{{ selectedHospital['gugun'] }}</td>
-              </tr> -->
-              </tr>
-
-              <tr>
                 <td>주소</td>
                 <td>{{ selectedHospital['address'] }}</td>
               </tr>
@@ -91,8 +81,6 @@ export default {
         text: '병원명',
         value: 'name',
       },
-      // { text: '시도', value: 'sido' },
-      // { text: '구군', value: 'gugun' },
       {
         text: '주소',
         value: `address`,

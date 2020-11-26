@@ -36,19 +36,18 @@ export default {
         }); //end each
       }
 
-      let mapContainer = document.getElementById(this.mapId), // 지도를 표시할 div
+      let mapContainer = document.getElementById(this.mapId),
         mapOption = {
-          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 7, // 지도의 확대 레벨
+          center: new kakao.maps.LatLng(33.450701, 126.570667),
+          level: 7,
         };
 
       while (mapContainer.firstChild)
         mapContainer.removeChild(mapContainer.firstChild);
-      // 지도를 생성합니다
+
       let map = new kakao.maps.Map(mapContainer, mapOption);
       staticMap = map;
 
-      // 주소-좌표 변환 객체를 생성합니다
       let geocoder = new kakao.maps.services.Geocoder();
 
       _this.propsListData.forEach((nowObj, index) => {
@@ -61,11 +60,9 @@ export default {
         else nameValue = nowObj[nameKey]._text;
 
         geocoder.addressSearch(addressValue, function(result, status) {
-          // 정상적으로 검색이 완료됐으면
           if (status === kakao.maps.services.Status.OK) {
             let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            // 결과값으로 받은 위치를 마커로 표시합니다
             let marker = new kakao.maps.Marker({
               map: map,
               position: coords,
@@ -88,15 +85,12 @@ export default {
               '   </div>' +
               '</div>';
 
-            // 마커 위에 커스텀오버레이를 표시합니다
-            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
             let overlay = new kakao.maps.CustomOverlay({
               content: content,
               map: map,
               position: marker.getPosition(),
             });
 
-            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
             kakao.maps.event.addListener(marker, 'click', function() {
               let arr = [];
               arr[0] = nowObj;
@@ -110,10 +104,9 @@ export default {
               overlay.setMap(null);
             });
             overlay.setMap(null);
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             if (index == length - 1) map.setCenter(coords);
           } //end ok
-        }); //endSearch
+        }); //end Search
       });
       map.relayout();
     },

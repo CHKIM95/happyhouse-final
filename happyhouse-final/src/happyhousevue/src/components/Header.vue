@@ -11,22 +11,11 @@
             src="@/assets/logo.png"
             class="float:left; margin-right:20px; margin-top:20px; clear:both;"
           ></v-img>
-          <!-- <v-btn text @click="goHome">
-          집중, My Home, Precious Home
-        </v-btn> -->
         </v-btn>
       </v-tab>
       <v-tab>
         Happyhouse
       </v-tab>
-      <!-- <v-btn icon right>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon right>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn> -->
-
       <v-tabs right>
         <v-tab v-if="!getAccessToken" to="/happyhouse/login">로그인</v-tab>
         <template v-else>
@@ -126,7 +115,6 @@ export default {
         .catch(() => {
           alert('error');
         });
-      // this.$store.getters.getAccessToken();
     },
   },
   mounted() {
@@ -135,12 +123,5 @@ export default {
     this.$store.state.userName = this.getUserName;
     axios.defaults.headers.common['auth-token'] = this.getAccessToken;
   },
-  // updated() {
-  //   if (this.$store.getAccessToken) {
-  //     this.isLogin = flase;
-  //   } else {
-  //     this.isLogin = false;
-  //   }
-  // },
 };
 </script>

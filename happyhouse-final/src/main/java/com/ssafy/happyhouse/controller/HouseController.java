@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.happyhouse.model.SidoGugunDongDto;
 import com.ssafy.happyhouse.model.service.HouseService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,6 +25,7 @@ import java.io.IOException;
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequestMapping("/house")
 @RestController
+@Api(value = "SSAFY", description = "Happy House 2020")
 public class HouseController {
 
 	@Autowired
@@ -42,6 +46,7 @@ public class HouseController {
 		return houseService.getDongInGugun(gugun);
 	}
 	
+	@ApiOperation(value = "스웨거 확인", response = List.class)
 	@RequestMapping(value = "/searchHouse", method = RequestMethod.GET)
 	public String asynchronousSearch(@RequestParam Map<String, String> searchWords) throws Exception{
 		
