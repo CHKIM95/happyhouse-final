@@ -1,8 +1,11 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
-      <v-row>
-        <v-col cols="12" md="4">
+  <div class="mt-15 mx-auto" style="min-width:600px">
+    <v-card class="mt-15 px-10 pb-5" style="text-align:center">
+      <v-card-title sub class="my-2 justify-center pt-5 mt-5">
+        <h2>"마이 페이지"</h2>
+      </v-card-title>
+      <v-form v-model="valid">
+        <v-container>
           <v-text-field
             v-model="user.userid"
             :rules="idRules"
@@ -10,24 +13,15 @@
             label="아이디"
             disabled
             required
-            placeholder="아이디를 입력해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
-            type="Password"
             v-model="user.userpwd"
+            type="Password"
             :rules="passwordRules"
             label="패스워드 변경"
             required
             placeholder="비밀번호를 입력해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
             v-model="confirmPassword"
             type="Password"
@@ -36,11 +30,6 @@
             required
             placeholder="비밀번호를 확인해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
             v-model="user.username"
             :rules="nameRules"
@@ -48,60 +37,53 @@
             required
             placeholder="이름을 입력해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="12" md="4">
           <v-text-field
+            dense
             v-model="user.email"
             :rules="emailRules"
             label="이메일"
             required
-            @keypress.enter="login"
             placeholder="이메일을 입력해주세요"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="8" md="4">
+          <v-row>
+            <v-col cols="6" class="pr-1">
+              <v-text-field
+                id="userAddressCode"
+                label="우편번호"
+                required
+                disabled
+                placeholder="우편번호를 검색해주세요"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="2" class="mt-2 pl-0 pb-0 mb-0">
+              <v-btn
+                class="float:left; margin-right:20px; margin-top:20px; clear:both;"
+                primary
+                @click="searchAddress"
+              >
+                검색
+              </v-btn>
+            </v-col>
+          </v-row>
           <v-text-field
-            id="userAddressCode"
-            label="우편번호"
-            required
-            placeholder="우편번호를 검색해주세요"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="4" md="4">
-          <v-btn primary @click="searchAddress">
-            검색
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="4">
-          <v-text-field
-            id="userRoadAddress"
             v-model="user.address"
+            id="userRoadAddress"
             label="도로명 주소"
             required
-            placeholder="우편번호를 검색하면 도로명 주소가 입력됩니다"
+            disabled
+            placeholder="도로명 주소"
           ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-btn depressed color="primary" @click="updateUser">
-          회원 정보 수정
-        </v-btn>
-        <v-space></v-space>
-        <v-btn depressed color="primary" @click="deleteUser">
-          회원 탈퇴
-        </v-btn>
-      </v-row>
-    </v-container>
-  </v-form>
+          <v-btn color="success" @click="updateUser">
+            회원 정보 수정
+          </v-btn>
+          <v-space></v-space>
+          <v-btn color="error" class="ml-4" @click="deleteUser">
+            회원 탈퇴
+          </v-btn>
+        </v-container>
+      </v-form>
+    </v-card>
+  </div>
 </template>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -109,6 +91,9 @@
 <script>
 import axios from 'axios';
 
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -132,7 +117,9 @@ export default {
     axios
       .get(`${SERVER_URL}/user/info`)
       .then((response) => {
+        // console.log(this.user);
         this.user = response.data.user;
+        // console.log(this.user);
       })
       .catch(() => {
         this.$store.dispatch('LOGOUT').then(() => this.$router.replace('/'));
@@ -163,10 +150,17 @@ export default {
         })
         .then((response) => {
           if (response.data == 'success') {
-            alert('수정되었습니다');
-            this.$router.replace('/');
+            this.$store.dispatch('LOGIN', this.user).then((response) => {
+              if (response == 'success') {
+                this.$swal('수정되었습니다', '', 'success');
+              } else {
+                this.$swal('수정 실패 :)', '', 'error');
+              }
+              // alert(this.user.username);
+              this.$router.replace('/');
+            });
           } else {
-            alert('수정에 실패하였습니다.');
+            this.$swal('수정에 실패하였습니다.', '', 'error');
           }
         });
     },
@@ -176,12 +170,12 @@ export default {
         .delete(`${SERVER_URL}/user/delete?userid=${this.user.userid}`)
         .then((response) => {
           if (response.data == 'success') {
-            alert('탈퇴되었습니다');
+            this.$swal('탈퇴되었습니다', '', 'success');
             this.$store
               .dispatch('LOGOUT')
               .then(() => this.$router.replace('/').catch(() => {}));
           } else {
-            alert('수정에 실패하였습니다.');
+            this.$swal('탈퇴에 실패하였습니다.', '', 'error');
           }
         });
     },

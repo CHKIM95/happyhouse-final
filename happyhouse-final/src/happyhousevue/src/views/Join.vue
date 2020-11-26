@@ -1,6 +1,6 @@
 <template>
-  <div class="my-10 mx-auto" style="min-width:600px">
-    <v-card class="px-10 pb-5">
+  <div class="mt-15 mx-auto" style="min-width:600px">
+    <v-card class="mt-15 px-10 pb-5">
       <v-card-title sub class="subtitle-1 justify-center pb-0">
         집중해보고 싶으세요?
       </v-card-title>
@@ -88,6 +88,9 @@
 
 <script>
 import axios from 'axios';
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -137,10 +140,10 @@ export default {
         })
         .then((response) => {
           if (response.data == 'success') {
-            alert('가입되었습니다.');
+            this.$swal('가입되었습니다.', '', 'success');
             this.$router.replace('/');
           } else {
-            alert('가입에 실패하였습니다.');
+            this.$swal('가입에 실패하였습니다.', '', 'error');
           }
         });
     },

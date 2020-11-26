@@ -9,17 +9,16 @@
         ></v-progress-linear>
       </template>
 
-      <v-card-title>
+      <v-card-title class="subtitle-2">
         <h2>{{ detail.subject }}</h2>
       </v-card-title>
 
       <v-card-text class="py-0">
         <div class="subtitle-2">
-          <b>{{ detail.userid }}</b
-          >님이 올려주신 <b>{{ detail.no }}</b> 번째 글
+          작성자 : <b>{{ detail.userid }}</b>
         </div>
         <v-row align="center" class="mx-0">
-          <div class="black--text m-6 my-3 font-weight-bold">
+          <div class="black--text m-6 my-3 ">
             {{ detail.content }}
           </div>
         </v-row>
@@ -51,9 +50,9 @@
 
       <v-card-text>
         <v-row align="center" class="mx-0 .col-md-3">
-          <div class="indigo--text m-6 h6 font-weight-bold">
+          <a class="indigo--text m-6 h6 font-weight-bold">
             게시물 평가하기
-          </div>
+          </a>
           <v-rating
             :value="4.5"
             color="amber"
@@ -62,7 +61,10 @@
             size="14"
           ></v-rating>
         </v-row>
-        <div class="subtitle-4">작성시간 {{ detail.regtime }}</div>
+        <div class="subtitle-4">
+          #<b>{{ detail.no }}</b
+          >, 작성시간 {{ detail.regtime }}
+        </div>
       </v-card-text>
     </v-card>
   </div>
@@ -70,6 +72,9 @@
 
 <script>
 import http from '../../http-common';
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 
 import { mapGetters } from 'vuex';
 export default {
@@ -85,13 +90,9 @@ export default {
   },
   methods: {
     updateQnA: function() {
-      // alert(this.no + '의 게시글를 수정할것입니다.');
-
       this.$router.push('/happyhouse/qna/' + this.no + '/update');
     },
     fetchData() {
-      console.log('hjello');
-      console.log(this.no);
       http
         .get('/qna/detailQnA/' + this.no)
         .then((response) => (this.detail = response.data))
@@ -102,9 +103,6 @@ export default {
       console.dir(this.detail);
     },
     deleteQnA: function() {
-      alert(
-        this.no + '의 게시글을 삭제할것입니다. 괜찮은지는 모르겠고 지웠습니다.'
-      );
       http
         .delete('/qna/deleteQnA/' + this.no)
         .then((response) => (this.detail = response.data))
@@ -112,12 +110,9 @@ export default {
           this.errored = true;
         })
         .finally(() => (this.loading = false));
-      this.$router.push('/happyhouse/qna');
-      window.location.reload();
+      this.$swal(this.no + '번글을 삭제했어요', '', 'success');
+      this.$router.push('/delete/success');
     },
-    // goBack: function() {
-    //   this.$router.replace('/happyhouse/qna');
-    // },
   },
   watch: {
     $route: 'fecthData',
@@ -126,10 +121,7 @@ export default {
     ...mapGetters(['getAccessToken', 'getUserId', 'getUserId']),
   },
   created() {
-    // alert(this.no);
     this.fetchData();
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->

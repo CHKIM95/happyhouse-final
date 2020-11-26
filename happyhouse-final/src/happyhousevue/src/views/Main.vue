@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <a href="https://map.kakao.com/link/map/37.402056,127.108212"> 이동 </a>
+  <div class="content">
     <v-container fluid>
-      <v-row justify="center">
+      <v-row class="mt-16 pt-7" justify="center">
         <v-img
           position="center"
-          lazy-src="@/assets/Zip-Zung.png"
+          lazy-src="@/assets/logo.png"
           max-height="400"
           max-width="400"
           src="@/assets/main.jpg"
         ></v-img>
       </v-row>
+      <br />
       <SelectBox @selectedHouseType="emitFunc" />
     </v-container>
   </div>
@@ -18,7 +18,9 @@
 
 <script>
 import SelectBox from '../components/SelectBox.vue';
-
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 export default {
   data: () => ({
     selectedHouseType: '',

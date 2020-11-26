@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <Header />
     <router-view
+      class="wrapper"
       :inputSelectedData="selectedData"
       :selectedHouseObjArr="selectedHouseObjArr"
       @selectedData="completeSelect"
@@ -14,7 +15,6 @@
 <script>
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-
 export default {
   data: () => ({
     selectedData: [],
@@ -32,7 +32,6 @@ export default {
     },
 
     getDetailInfo: function(data) {
-      alert('aaa');
       this.selectedHouseObjArr = data;
       this.$router.push('/happyhouse/houseDetailData');
     },

@@ -14,16 +14,7 @@ export default new Vuex.Store({
   },
   getters: {
     getAccessToken(state) {
-      // console.log(state.accessToken + ' is nice');
       if (state.accessToken !== null) return state.accessToken;
-
-      // if (state.accessToken == null && localStorage != undefined)
-      //   return localStorage.accessToken;
-      // console.log(state.accessToken);
-      // console.log(state.accessToken || localStorage.accessToken);
-      // console.log('반전 of null' + !null);
-      // console.log('반전 of undefined' + !undefined);
-      // console.log(localStorage.accessToken);
 
       return localStorage.accessToken;
     },
@@ -44,22 +35,12 @@ export default new Vuex.Store({
       localStorage.accessToken = payload['auth-token'];
       localStorage.userId = payload['user-id'];
       localStorage.userName = payload['user-name'];
-      // console.log(localStorage.userId);
-      // console.log('mutation ' + state);
-      // console.log('mutation ' + localStorage.accessToken);
-      // const enhanceAccessToeken = () => {
-      //   const { accessToken } = localStorage;
-      //   if (!accessToken) return;
-      //   axios.defaults.headers.common['auth-token'] = payload['auth-token'];
-      // };
-      // enhanceAccessToeken();
     },
     LOGOUT(state) {
       state.accessToken = null;
       delete localStorage.accessToken;
       delete localStorage.userId;
       delete localStorage.userName;
-      // localStorage.accessToken = null;
       state.userId = '';
       state.userName = '';
     },
@@ -69,15 +50,19 @@ export default new Vuex.Store({
       return axios
         .post(`${SERVER_URL}/user/confirm/login`, user)
         .then((response) => {
-          context.commit('LOGIN', response.data);
-          axios.defaults.headers.common[
-            'auth-token'
-          ] = `${response.data['auth-token']}`;
+          if (response.data.message == '로그인 실패') {
+            return 'fail';
+          } else {
+            context.commit('LOGIN', response.data);
+            axios.defaults.headers.common[
+              'auth-token'
+            ] = `${response.data['auth-token']}`;
+            return 'success';
+          }
         })
         .catch(({ message }) => alert(message));
     },
     LOGOUT(context) {
-      // console.log(this.state.accessToken);
       axios.defaults.headers.common['auth-token'] = undefined;
       context.commit('LOGOUT');
     },

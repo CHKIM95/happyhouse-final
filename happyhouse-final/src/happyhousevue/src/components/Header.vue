@@ -2,19 +2,23 @@
   <div>
     <v-app-bar color="#4181A6" class="white--text" dense dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-btn text @click="goHome">
-        집중, My Home, Precious Home
-      </v-btn>
-      <v-btn fab small color="cyan" to="/">
-        <v-img
-          position="center"
-          max-height="30"
-          max-width="30"
-          src="@/assets/Zip-Zung.png"
-          class="float:left; margin-right:20px; margin-top:20px; clear:both;"
-        ></v-img>
-      </v-btn>
-
+      <v-tab>
+        <v-btn fab small color="cyan" to="/">
+          <v-img
+            position="center"
+            max-height="30"
+            max-width="30"
+            src="@/assets/logo.png"
+            class="float:left; margin-right:20px; margin-top:20px; clear:both;"
+          ></v-img>
+          <!-- <v-btn text @click="goHome">
+          집중, My Home, Precious Home
+        </v-btn> -->
+        </v-btn>
+      </v-tab>
+      <v-tab>
+        Happyhouse
+      </v-tab>
       <!-- <v-btn icon right>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
@@ -25,11 +29,14 @@
 
       <v-tabs right>
         <v-tab v-if="!getAccessToken" to="/happyhouse/login">로그인</v-tab>
-        <v-tab v-else to="/happyhouse/logout" @click.prevent="onClickLogout"
-          >로그아웃</v-tab
-        >
+        <template v-else>
+          <v-tab> {{ getUserId }} 님 환영합니다! </v-tab>
+          <v-tab to="/happyhouse/logout" @click.prevent="onClickLogout"
+            >로그아웃</v-tab
+          >
+        </template>
         <v-tab v-if="!getAccessToken" to="/happyhouse/join">회원가입</v-tab>
-        <v-tab v-else to="/happyhouse/me">회원정보</v-tab>
+        <v-tab v-else to="/happyhouse/me">마이 페이지</v-tab>
       </v-tabs>
 
       <v-menu left bottom>
@@ -51,7 +58,7 @@
       <v-list nav dense>
         <v-list-item-group
           v-model="group"
-          active-class="deep-purple--text text--accent-4"
+          active-class="deep-indigo--text text--accent-4"
         >
           <v-list-item to="/">
             홈으로 돌아가기
@@ -60,7 +67,7 @@
               max-height="30"
               max-width="30"
               class="float:left; margin-right:20px; margin-top:20px; clear:both;"
-              src="@/assets/Zip-Zung.png"
+              src="@/assets/logo.png"
             ></v-img>
           </v-list-item>
           <v-list-item to="/happyhouse/qna">
@@ -87,6 +94,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import axios from 'axios';
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 
 export default {
   data: () => ({
@@ -110,8 +120,7 @@ export default {
       this.$store
         .dispatch('LOGOUT')
         .then(() => {
-          console.log('before go to main page');
-          console.log(this.getAccessToken);
+          this.$swal('로그아웃 완료 :)', '', 'success');
           this.$router.replace('/');
         })
         .catch(() => {

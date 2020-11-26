@@ -1,5 +1,5 @@
 <template>
-  <div :id="mapId" style="width:80%; height:80%; margin:0 auto;"></div>
+  <div :id="mapId" style="width:80%; height:90%; margin:0 auto;"></div>
 </template>
 
 <script
@@ -79,7 +79,7 @@ export default {
               '        </div>' +
               '        <div class="body">' +
               '            <div class="img">' +
-              '                <img src="https://source.unsplash.com/400x400/?house" width="73" height="70">' +
+              '                <img src="https://source.unsplash.com/400x400/?home" width="73" height="70">' +
               '           </div>' +
               '           <div class="desc">' +
               addressValue +

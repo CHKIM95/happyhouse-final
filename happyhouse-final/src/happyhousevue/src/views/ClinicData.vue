@@ -1,13 +1,13 @@
 <template>
   <v-row style="height:500px">
-    <v-col cols="4" sm="4">
+    <v-col cols="5" sm="5">
       <KakaoMap
         :propsListData="clinicData"
         :mapId="clinicMapId"
         @selectedEmitObjArr="getDetailInfo"
       />
     </v-col>
-    <v-col cols="8" sm="8">
+    <v-col cols="7" sm="7" class="mt-10">
       <v-data-table
         :headers="headers"
         :items="clinicData"
@@ -120,8 +120,6 @@ export default {
 
   created() {
     let _this = this;
-    // _this.clinicData = this.propsClinicData;
-    // alert(_this.clinicData);
     axios
       .get(`${SERVER_URL}/surrounding/clinic?gugun=${this.propsGugunCode}`)
       .then((response) => {

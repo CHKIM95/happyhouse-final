@@ -3,7 +3,7 @@
     <div v-if="!submitted">
       <v-card class="pa-6 mx-auto my-0" max-width="500">
         <v-card-title>{{ detail.no }}번 게시물을 수정합니다!</v-card-title>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form v-model="valid" lazy-validation style="text-align:center">
           <v-text-field
             v-model="detail.userid"
             label="아이디"
@@ -13,12 +13,14 @@
             v-model="detail.subject"
             label="제목"
             required
+            ref="formSubject"
           ></v-text-field>
 
           <v-textarea
             v-model="detail.content"
             label="내용"
             required
+            ref="formContent"
           ></v-textarea>
 
           <v-btn
@@ -34,8 +36,8 @@
             초기화 하기
           </v-btn>
 
-          <v-btn color="warning" @click="resetValidation">
-            Reset Validation
+          <v-btn class="warning" v-on:click="showQnA">
+            취소하기
           </v-btn>
         </v-form>
       </v-card>
@@ -51,6 +53,9 @@
 <script>
 import http from '../../http-common';
 
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 export default {
   name: 'updateQnA',
   props: ['no'],
@@ -67,12 +72,10 @@ export default {
     };
   },
   mounted() {
-    console.log(this.no, 'is nice');
     http
       .get('/qna/detailQnA/' + this.no)
       .then((response) => {
         this.detail = response.data;
-        console.log(this.detail);
       })
       .catch(() => {
         this.errored = true;
@@ -86,16 +89,16 @@ export default {
       this.$refs.form.validate();
     },
     reset() {
-      this.$refs.form.reset();
+      this.$refs.formSubject.reset();
+      this.$refs.formContent.reset();
     },
     updateQnA() {
-      console.log(this.detail.subject, '문제있나요');
-      if (this.detail.subject == '') {
-        alert('제목은 필수값입니다.');
+      if (this.detail.subject == '' || this.detail.subject == undefined) {
+        this.$swal('제목은 필수값입니다.', '제목을 입력해주세요!', 'error');
         return;
       }
-      if (this.detail.content == '') {
-        alert('내용은 필수값입니다.');
+      if (this.detail.content == '' || this.detail.content == undefined) {
+        this.$swal('내용은 필수값입니다.', '내용을 입력해주세요!', 'error');
         return;
       }
 
@@ -106,15 +109,15 @@ export default {
         })
         .then((response) => {
           if (response.data == 'success') {
-            alert('게시물을 등록하였습니다.');
-            this.$router.replace('/happyhouse/qna');
-            window.location.reload();
+            this.$router.replace('/update/success');
+            this.$swal('게시물을 수정하였습니다.', '', 'success');
+            // this.$router.replace('/happyhouse/qna');
+            // window.location.reload();
           } else {
-            alert('게시물을 등록 하지 못했습니다.');
+            this.$swal('게시물을 수정 하지 못했습니다.', '', 'error');
           }
         });
       this.submitted = true;
-      // this.showQnA();
     },
     newQnA() {
       (this.submitted = false),

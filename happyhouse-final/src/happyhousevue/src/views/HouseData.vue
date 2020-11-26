@@ -118,16 +118,12 @@ export default {
       searchAddress += this.selectedHouseObj['법정동']._text;
       searchAddress += ' ';
       searchAddress += this.selectedHouseObj['지번']._text;
-      alert(searchAddress);
       // 주소로 좌표를 검색합니다
       geocoder.addressSearch(searchAddress, function(result, status) {
         // 정상적으로 검색이 완료됐으면
         if (status === kakao.maps.services.Status.OK) {
           objArr[0] = data;
           objArr[1] = [result[0].y, result[0].x];
-          alert(objArr[0]);
-          alert(objArr[1]);
-          alert(objArr[1]);
           _this.getDetailInfo(objArr);
         }
       });

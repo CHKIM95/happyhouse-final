@@ -1,6 +1,6 @@
 <template>
-  <div class="ma-auto">
-    <v-card max-width="500" class="px-10 pb-5">
+  <div class="mt-15 mx-auto">
+    <v-card min-width="500" class="mt-15 px-10 py-5">
       <v-card-title sub class="subtitle-1 justify-center pb-0">
         집중할 준비, 되셨나요?
       </v-card-title>
@@ -8,7 +8,7 @@
         <h2>"로그인"</h2>
       </v-card-title>
       <v-card-text>
-        <v-form v-model="valid">
+        <v-form v-model="valid" style="text-align:center">
           <v-text-field
             v-model="user.userid"
             :rules="idRules"
@@ -17,6 +17,7 @@
             required
           ></v-text-field>
           <v-text-field
+            class="mb-10"
             type="Password"
             v-model="user.userpwd"
             :rules="passwordRules"
@@ -39,9 +40,11 @@
 <script>
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import swal from 'vue-swal';
 
 Vue.use(VueRouter);
 
+Vue.use(swal);
 export default {
   name: 'Login',
   data: () => ({
@@ -60,36 +63,9 @@ export default {
 
   computed: {
     nextRoute() {
-      // this.$router.params.nextRoute =
-      //   '/happyhouse/' + this.$route.params.nextRoute;
-      // alert(this.$route.params.firstKey + '/' + this.$route.params.secondKey);
       let _this = this;
-      // if (_this.$router.params.thirdKey) {
-      //   alert(
-      //     _this.$route.params.firstKey +
-      //       '/' +
-      //       _this.$route.params.secondKey +
-      //       '/' +
-      //       _this.$router.params.thirdKey
-      //   );
-      //   return (
-      //     _this.$route.params.firstKey +
-      //     '/' +
-      //     _this.$route.params.secondKey +
-      //     '/' +
-      //     _this.$router.params.thirdKey
-      //   );
-      // }
 
       if (_this.$route.params.thirdKey) {
-        alert(
-          'after mix 3 :' +
-            _this.$route.params.firstKey +
-            '/' +
-            _this.$route.params.secondKey +
-            '/' +
-            _this.$route.params.thirdKey
-        );
         return (
           _this.$route.params.firstKey +
           '/' +
@@ -98,40 +74,32 @@ export default {
           _this.$route.params.thirdKey
         );
       } else if (_this.$route.params.secondKey) {
-        alert(
-          'after mix 2 :' +
-            _this.$route.params.firstKey +
-            '/' +
-            _this.$route.params.secondKey
-        );
         return (
           _this.$route.params.firstKey + '/' + _this.$route.params.secondKey
         );
       } else {
-        alert('아무고토 없어요 else ');
         return '';
       }
-
-      // if(this.$router.params.thirdKey){
-      //   return this.$route.params.firstKey + '/' + this.$route.params.secondKey + '/' + this.$router.params.thirdKey;
-      // }
     },
   },
 
   methods: {
     login: function() {
-      // LOGIN 액션 실행
-      // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
-      // alert('hello');
-      // alert(this.nextRoute + ' hello');
-      alert('end hello');
       this.$store
         .dispatch('LOGIN', this.user)
-        .then(() => {
-          alert(this.nextRoute + ' nextRoute recpog');
+        .then((response) => {
+          if (response == 'success') {
+            this.$swal('로그인 완료 :)', '', 'success');
+          } else {
+            this.$swal('로그인 실패 :)', '', 'error');
+          }
+
           this.$router.replace(`/${this.nextRoute}`);
         })
         .catch(({ message }) => (this.msg = message));
+    },
+    join: function() {
+      this.$router.replace('/happyhouse/join');
     },
   },
 };

@@ -1,13 +1,13 @@
 <template>
   <v-row style="height:500px">
-    <v-col cols="4" sm="4">
+    <v-col cols="5" sm="5">
       <KakaoMap
         :propsListData="hospitalData"
         :mapId="hospitalMapId"
         @selectedEmitObjArr="getDetailInfo"
       />
     </v-col>
-    <v-col cols="8" sm="8">
+    <v-col cols="7" sm="7" class="mt-10">
       <v-data-table
         :headers="headers"
         :items="hospitalData"
@@ -40,13 +40,15 @@
                 <td>{{ selectedHospital['name'] }}</td>
               </tr>
               <tr>
-                <td>시도</td>
+                <!-- <td>시도</td>
                 <td>{{ selectedHospital['sido'] }}</td>
               </tr>
               <tr>
                 <td>구군</td>
                 <td>{{ selectedHospital['gugun'] }}</td>
+              </tr> -->
               </tr>
+
               <tr>
                 <td>주소</td>
                 <td>{{ selectedHospital['address'] }}</td>
@@ -89,8 +91,8 @@ export default {
         text: '병원명',
         value: 'name',
       },
-      { text: '시도', value: 'sido' },
-      { text: '구군', value: 'gugun' },
+      // { text: '시도', value: 'sido' },
+      // { text: '구군', value: 'gugun' },
       {
         text: '주소',
         value: `address`,

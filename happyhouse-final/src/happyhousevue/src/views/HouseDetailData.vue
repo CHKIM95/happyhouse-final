@@ -5,17 +5,17 @@
         <i>{{ aptName }}</i>
       </h1>
     </div>
-    <v-container>
-      <v-row justify="center">
+    <v-container style="width:1500px">
+      <v-row class="ml-15" justify="center" style="width:1000px">
         <v-col cols="4" sm="6">
           <v-row> </v-row>
-          <v-row>
+          <v-row class="mt-14">
             <v-img
-              position="center"
-              lazy-src="@/assets/Zip-Zung.png"
+              class="mx-auto"
+              lazy-src="@/assets/logo.png"
               max-height="400"
               max-width="400"
-              src="https://source.unsplash.com/200x200/?house"
+              src="@/assets/house2.jpg"
             ></v-img>
           </v-row>
         </v-col>
@@ -66,34 +66,19 @@
         </v-col>
       </v-row>
 
-      <!--       
-      <v-dialog v-model="dialog" persistent fullscreen>
-        <v-card>
-          <v-card-title>
-            <span class="headline">정보</span>
-          </v-card-title>
-          <v-card-text>
-            정보정보
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false">
-              Close
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog> -->
-      <v-row>
-        <h3>
-          <i>우리 주변 코로나 정보</i>
-        </h3>
-      </v-row>
-
-      <v-row justify="space-around" class="mt-3 mb-10">
-        <v-btn @click="showKakaoMap">카카오 맵으로 보기</v-btn>
-        <v-btn @click="showGraph">건물 스펙 한눈에 보기</v-btn>
-        <v-btn @click="showHospital">안심 병원 보기</v-btn>
-        <v-btn @click="showClinic">진료소 보기</v-btn>
+      <v-row justify="center" class="mt-3 mb-10">
+        <v-btn @click="showKakaoMap" color="yellow" class="ml-6"
+          >카카오 맵으로 보기</v-btn
+        >
+        <v-btn @click="showGraph" color="light-blue" class="ml-6 lighten-3"
+          >건물 스펙 한눈에 보기</v-btn
+        >
+        <v-btn @click="showHospital" color="green" class="ml-6 lighten-3"
+          >안심 병원 보기</v-btn
+        >
+        <v-btn @click="showClinic" color="green" class="ml-6 lighten-3"
+          >진료소 보기</v-btn
+        >
       </v-row>
       <v-row>
         <router-view
@@ -122,96 +107,32 @@ export default {
   }),
   methods: {
     showGraph: function() {
-      this.$router.push('/happyhouse/houseDetailData/graphData');
+      this.$router.replace('/happyhouse/houseDetailData/graphData');
     },
     showHospital: function() {
-      // console.log(this.hospitalList);
-      // let propsHospitalData = this.hospitalList;
-      // this.$router.push(
-      //   '/happyhouse/houseDetailData/hospitalData',
-      //   propsHospitalData
-      // );
-      this.$router.push({
+      this.$router.replace({
         name: 'HospitalData',
         params: { propsHospitalData: this.hospitalList },
       });
-      // this.$router.push('/happyhouse/houseDetailData/hospitalData');
     },
 
     showKakaoMap: function() {
-      // console.log(this.hospitalList);
-      // let propsHospitalData = this.hospitalList;
-      // this.$router.push(
-      //   '/happyhouse/houseDetailData/hospitalData',
-      //   propsHospitalData
-      // );
-      // this.$router.push({
-      //   name: 'HospitalData',
-      //   params: { propsHospitalData: this.hospitalList },
-      // });
-      //"_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
       window.open(this.KakaoAddress);
     },
 
     showClinic: function() {
-      // let propsClinicData = this.clinicList;
-      console.log(this.clinicList);
-      // this.$router.push(
-      //   '/happyhouse/houseDetailData/clinicData',
-      //   propsClinicData
-      // );
-      // this.$router.push({
-      //   name: 'ClinicData',
-      //   params: { propsClinicData: this.clinicList },
-      // });
-      this.$router.push('/happyhouse/houseDetailData/clinicData');
+      this.$router.replace('/happyhouse/houseDetailData/clinicData');
     },
-
-    // chart
-    // updateChart() {
-    //   this.$refs.skills_chart.update();
-    // },
-    // updateAmount(amount, index) {
-    //   this.chartData.datasets[0].data.splice(index, 1, amount);
-    //   this.updateChart();
-    // },
-    // updateName(text, index) {
-    //   this.chartData.labels.splice(index, 1, text);
-    //   this.updateChart();
-    // },
-    // addExperience() {
-    //   var currentDataset = this.chartData.datasets[0];
-    //   this.chartData.labels.push(`Skill ${currentDataset.data.length + 1}`);
-    //   currentDataset.data.push(1);
-    //   // currentDataset.backgroundColor.push(randomColor());
-    //   currentDataset.backgroundColor.push('blue');
-    //   this.updateChart();
-    // },
-    // remove(index) {
-    //   const currentDataset = this.chartData.datasets[0];
-    //   currentDataset.data.splice(index, 1);
-    //   this.chartData.labels.splice(index, 1);
-    //   currentDataset.backgroundColor.splice(index, 1);
-    //   this.updateChart();
-    // },
   },
   computed: {},
   props: ['selectedHouseObjArr'],
   mounted() {
     this.selectedHouseObj = this.selectedHouseObjArr[0];
     this.coordinates = this.selectedHouseObjArr[1];
-
+    this.showGraph();
     if (this.selectedHouseObj == undefined) {
-      alert('새로고침쓰!');
       this.$router.push('/happyhouse');
     }
-    // console.log(
-    //   this.selectedHouseObj['연립다세대'],
-    //   this.selectedHouseObj['아파트'],
-    //   this.selectedHouseObj['보증금액'],
-    //   this.selectedHouseObj['거래금액']
-    // );
-
     if (this.selectedHouseObj['연립다세대'] == null)
       this.aptName = this.selectedHouseObj['아파트']._text;
     else this.aptName = this.selectedHouseObj['연립다세대']._text;
@@ -219,16 +140,7 @@ export default {
       this.dealPrice = this.selectedHouseObj['거래금액']._text;
     else this.dealPrice = this.selectedHouseObj['보증금액']._text;
 
-    // if (
-    //   this.selectedHouseObj['연립다세대']._text == undefined &&
-    //   this.selectedHouseObj['아파트']._text == undefined &&
-    //   this.selectedHouseObj['보증금액']._text == undefined &&
-    //   this.selectedHouseObj['거래금액']._text == undefined
-    // )
-    //   this.$router.replace('/');
-
     this.KakaoAddress = `https://map.kakao.com/link/map/${this.aptName}, ${this.coordinates[0]}, ${this.coordinates[1]}`;
-    alert(this.KakaoAddress);
   },
   created() {
     let _this = this;
@@ -239,8 +151,6 @@ export default {
       )
       .then((response) => {
         _this.hospitalList = response.data;
-        console.log(_this.hospitalList);
-        // this.isClicked = !this.isClicked;
       });
     axios
       .get(
@@ -248,8 +158,6 @@ export default {
       )
       .then((response) => {
         _this.clinicList = response.data;
-        console.log(_this.clinicList);
-        // this.isClicked = !this.isClicked;
       });
   },
 };

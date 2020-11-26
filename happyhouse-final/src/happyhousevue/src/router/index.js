@@ -15,18 +15,16 @@ import HouseDetailData from '../views/HouseDetailData.vue';
 import GraphData from '../components/GraphData.vue';
 import HospitalData from '../views/HospitalData.vue';
 import ClinicData from '../views/ClinicData.vue';
+import UpdateSuccess from '../components/UpdateSuccess.vue';
+import DeleteSuccess from '../components/DeleteSuccess.vue';
 
 Vue.use(VueRouter);
-
-// https://router.vuejs.org/kr/guide/advanced/navigation-guards.html
 const requireAuth = () => (to, from, next) => {
   const nextRoute = to.path;
 
   if (store.getters.getAccessToken) {
     return next();
   } else {
-    // console.log(nextRoute.substring(11));
-    // return next('/happyhouse/login' + nextRoute.substring(11));
     return next('/happyhouse/login' + nextRoute);
   }
 };
@@ -35,13 +33,20 @@ const routes = [
   {
     path: '/',
     name: 'Main',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     alias: '/happyhouse',
     component: Main,
   },
 
+  {
+    path: '/update/success',
+    name: 'UpdateSuccess',
+    component: UpdateSuccess,
+  },
+  {
+    path: '/delete/success',
+    name: 'DeleteSuccess',
+    component: DeleteSuccess,
+  },
   {
     path: '/happyhouse/houseData',
     name: 'HouseData',

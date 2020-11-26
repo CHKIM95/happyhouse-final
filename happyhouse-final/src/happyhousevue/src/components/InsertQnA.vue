@@ -3,7 +3,7 @@
     <div v-if="!submitted">
       <v-card class="pa-6 mx-auto my-12" max-width="500">
         <v-card-title>게시물 등록</v-card-title>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form v-model="valid" lazy-validation style="text-align:center">
           <v-text-field
             v-model="inputData.userid"
             label="아이디"
@@ -13,12 +13,14 @@
           <v-text-field
             v-model="inputData.subject"
             label="제목"
+            ref="formSubject"
             required
           ></v-text-field>
 
           <v-textarea
             v-model="inputData.content"
             label="내용"
+            ref="formContent"
             required
           ></v-textarea>
 
@@ -28,7 +30,7 @@
             class="mr-4"
             @click="insertQnA"
           >
-            수정
+            등록
           </v-btn>
 
           <v-btn color="warning" class="mr-4" @click="reset">
@@ -40,16 +42,40 @@
         </v-form>
       </v-card>
     </div>
-    <div v-else>
-      <h4>성공적으로 게시물을 수정하였습니다!</h4>
-      <button class="btn btn-success" v-on:click="showQnA">
-        전체 목록으로 돌아가기
-      </button>
+    <div v-else class="content">
+      <v-card :loading="loading" class="mx-auto" max-width="500">
+        <template slot="progress">
+          <v-progress-linear
+            color="#4181a6"
+            height="10"
+            indeterminate
+          ></v-progress-linear>
+        </template>
+
+        <v-card-title>
+          {{ this.resultString }}
+        </v-card-title>
+
+        <v-card-text class="py-0 wrapper">
+          <v-card-actions class="mx-auto">
+            <v-btn
+              color="#4181a6"
+              style="color:white; margin-left:25%"
+              @click="showQnA"
+            >
+              Go back to QnA List
+            </v-btn>
+          </v-card-actions>
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>
 <script>
 import http from '../../http-common';
+import Vue from 'vue';
+import swal from 'vue-swal';
+Vue.use(swal);
 import { mapGetters } from 'vuex';
 export default {
   name: 'InsertQnA',
@@ -64,6 +90,7 @@ export default {
       content: '',
       submitted: false,
       inputData: {},
+      resultString: '',
     };
   },
   methods: {
@@ -71,19 +98,19 @@ export default {
       this.$refs.form.validate();
     },
     reset() {
-      this.$refs.form.reset();
+      this.$refs.formSubject.reset();
+      this.$refs.formContent.reset();
     },
     resetValidation() {
       this.$refs.form.resetValidation();
     },
     insertQnA() {
-      console.log(this.inputData.subject, '문제있나요');
-      if (this.inputData.subject == '') {
-        alert('제목은 필수값입니다.');
+      if (this.inputData.subject == undefined || this.inputData.subject == '') {
+        this.$swal('제목이 비어있어요', '제목은 필수에요', 'error');
         return;
       }
-      if (this.inputData.content == '') {
-        alert('내용은 필수값입니다.');
+      if (this.inputData.content == undefined || this.inputData.content == '') {
+        this.$swal('내용이 비어있어요', '내용은 필수에요', 'error');
         return;
       }
 
@@ -95,11 +122,11 @@ export default {
         })
         .then((response) => {
           if (response.data == 'success') {
-            alert('게시물을 등록하였습니다.');
-            this.$router.replace('/happyhouse/qna');
-            window.location.reload();
+            this.$swal('축하해요!!', 'QnA가 등록되었어요', 'success');
+            this.resultString = '멋진 질문이 등록 되었는지 확인해볼까요?';
           } else {
-            alert('게시물을 등록 하지 못했습니다.');
+            this.$swal('아쉽네요..', 'QnA가 등록되지 않았어요', 'return');
+            this.resultString = '아쉽지만 다시 시도해주세요!';
           }
         });
       this.submitted = true;
@@ -127,9 +154,7 @@ export default {
     ...mapGetters(['getAccessToken', 'getUserId', 'getUserId']),
   },
   created() {
-    // alert('hello created');
     this.inputData.userid = this.getUserId;
-    // alert(this.inputData.userid + 'hello?');
   },
 };
 </script>
